@@ -26,5 +26,30 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        /*btnLaundryConfirm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, LaundryConfirmActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        btnRewardConfirm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, RewardConfirmActivity.class);
+                startActivity(intent);
+            }
+
+        });
+
+        btnNoticeConfirm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, NoticeConfirmActivity.class);
+                startActivity(intent);
+            }
+        });*/
     }
 }
