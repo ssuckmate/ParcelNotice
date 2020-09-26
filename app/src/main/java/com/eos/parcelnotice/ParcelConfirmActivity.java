@@ -12,6 +12,7 @@ public class ParcelConfirmActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_parcel_confirm);
         Toolbar toolbar = findViewById(R.id.toolbar);
+        toolbar.setTitle(R.string.parcel_confirm_toolbar);
         setSupportActionBar(toolbar);
     }
 }
