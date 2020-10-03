@@ -12,6 +12,17 @@
         android:layout_height="3dp"
         android:layout_marginBottom="15dp"
         android:background="#000000"
+        app:layout_constraintBottom_toTopOf="@+id/textView_main_appDescribe"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/textView_main_appDescribe"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="5dp"
+        android:fontFamily="@font/nexon_gothic_lv1_bold"
+        android:text="당신을 위한 기숙사 메이트"
         app:layout_constraintBottom_toTopOf="@+id/textView_main_appName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -21,8 +32,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="5dp"
-        android:text="앱 이름"
-        android:textSize="40sp"
+        android:fontFamily="@font/monsori"
+        android:text="쑥메이트"
+        android:textColor="#14A534"
+        android:textSize="50sp"
         app:layout_constraintBottom_toTopOf="@+id/textView_main_version"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -32,14 +45,15 @@
         android:layout_width="60dp"
         android:layout_height="25dp"
         android:layout_marginBottom="10dp"
-        android:text="학생용"
-        android:gravity="center"
-        android:textColor="#FFFFFF"
         android:background="@drawable/all_button_background"
+        android:backgroundTint="#3DCC5B"
+        android:fontFamily="@font/nexon_gothic_lv1_bold"
+        android:gravity="center"
+        android:text="학생용"
+        android:textColor="#FFFFFF"
         app:layout_constraintBottom_toTopOf="@+id/view_main_underLine"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
-
     <View
         android:id="@+id/view_main_underLine"
         android:layout_width="300dp"
@@ -53,13 +67,13 @@
 
     <ImageView
         android:id="@+id/imageView_main_mainImage"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="70dp"
-        app:layout_constraintBottom_toTopOf="@+id/button_main_parcel"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_marginBottom="30dp"
+        app:layout_constraintBottom_toTopOf="@id/button_main_parcel"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        tools:srcCompat="@tools:sample/avatars" />
+        tools:src="@drawable/app_main_image" />
 
     <Button
         android:id="@+id/button_main_parcel"
@@ -67,9 +81,10 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="15dp"
         android:background="@drawable/all_button_background"
+        android:backgroundTint="#8DD891"
+        android:fontFamily="@font/nexon_gothic_lv1_bold"
         android:text="택배 확인"
         android:textColor="#FFFFFF"
-        android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/button_main_laundry_room"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -82,7 +97,7 @@
         android:background="@drawable/all_button_background"
         android:text="세탁실 확인"
         android:textColor="#FFFFFF"
-        android:textStyle="bold"
+        android:fontFamily="@font/nexon_gothic_lv1_bold"
         app:layout_constraintBottom_toTopOf="@+id/button_main_reward"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -93,9 +108,10 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="15dp"
         android:background="@drawable/all_button_background"
+        android:backgroundTint="#8DD891"
+        android:fontFamily="@font/nexon_gothic_lv1_bold"
         android:text="상벌점 확인"
         android:textColor="#FFFFFF"
-        android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/button_main_notice"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -106,6 +122,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="100dp"
         android:background="@drawable/all_button_background"
+        android:fontFamily="@font/nexon_gothic_lv1_bold"
         android:text="공지 확인"
         android:textColor="#FFFFFF"
         android:textStyle="bold"
