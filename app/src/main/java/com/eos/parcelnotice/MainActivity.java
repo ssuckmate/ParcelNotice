@@ -44,13 +44,14 @@ public class MainActivity extends AppCompatActivity {
             }
 
         });
+        */
 
         btnNoticeConfirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, NoticeConfirmActivity.class);
+                Intent intent = new Intent(MainActivity.this, NoticeActivity.class);
                 startActivity(intent);
             }
-        });*/
+        });
     }
 }

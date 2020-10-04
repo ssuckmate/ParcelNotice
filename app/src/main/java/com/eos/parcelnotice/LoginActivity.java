@@ -40,7 +40,7 @@ public class LoginActivity extends AppCompatActivity {
         checkBoxAutoLogin = findViewById(R.id.checkbox_login_autoLogin);
         sessionCallBack = new SessionCallBack();
         Session.getCurrentSession().addCallback(sessionCallBack);
-        Session.getCurrentSession().checkAndImplicitOpen(); //자동로그인
+        //Session.getCurrentSession().checkAndImplicitOpen(); //자동로그인
 
         if(checkBoxAutoLogin.isChecked() == true){
             //자동로그인
