@@ -19,11 +19,14 @@ public class MainActivity extends AppCompatActivity {
         btnLaundryConfirm = findViewById(R.id.button_main_laundry_room);
         btnRewardConfirm = findViewById(R.id.button_main_reward);
         btnNoticeConfirm = findViewById(R.id.button_main_notice);
+        Intent i = getIntent();
+        final String userID = getIntent().getStringExtra("userID");
 
         btnParcelConfirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(MainActivity.this, ParcelConfirmActivity.class);
+                intent.putExtra("userID",userID);
                 startActivity(intent);
             }
         });
@@ -32,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, LaundryConfirmActivity.class);
+                intent.putExtra("userID",userID);
                 startActivity(intent);
             }
         });
@@ -40,17 +44,20 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, RewardConfirmActivity.class);
+                intent.putExtra("userID",userID);
                 startActivity(intent);
             }
 
         });
+        */
 
         btnNoticeConfirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, NoticeConfirmActivity.class);
+                Intent intent = new Intent(MainActivity.this, NoticeActivity.class);
+                intent.putExtra("userID",userID);
                 startActivity(intent);
             }
-        });*/
+        });
     }
 }
