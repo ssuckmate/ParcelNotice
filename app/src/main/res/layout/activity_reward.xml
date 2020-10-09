@@ -7,8 +7,159 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".NoticeActivity">
-
     />
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolBar_notice"
+        android:layout_width="match_parent"
+        android:layout_gravity="center"
+        android:layout_height="60dp"
+        android:background="@color/colorPrimary"
+        app:title="상벌점 확인 "
+        app:titleTextColor="#000000"
+        android:theme="@style/ToolbarTheme"/>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="상점: "
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:textColor="#000000"
+            android:textSize="20dp"/>
+
+        <EditText
+            android:id="@+id/EditText_plus_point"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:textColor="#000000"
+            android:textSize="20dp"
+            android:enabled="false"/>
+
+    </LinearLayout>
+
+
+    <TableLayout
+        android:id="@+id/TableLayout_Plus"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:stretchColumns="*">
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorAccent">
+        
+            <TextView
+                android:id="@+id/TablePlus_day"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="날짜"
+                android:textSize="18dp"
+                android:textColor="#000000"
+                />
+
+            <TextView
+                android:id="@+id/TablePlus_point"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="상점"
+                android:textSize="18dp"
+                android:textColor="#000000"
+                />
+            <TextView
+                android:id="@+id/TablePlus_reason"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="사유"
+                android:textSize="18dp"
+                android:textColor="#000000"/>
+
+        </TableRow>
+
+    </TableLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="벌점: "
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:textColor="#000000"
+            android:textSize="20dp"/>
+
+        <EditText
+            android:id="@+id/EditText_minus_point"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:textColor="#000000"
+            android:textSize="20dp"
+            android:enabled="false"/>
+
+    </LinearLayout>
+
+    <TableLayout
+        android:id="@+id/TableLayout_Minus"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:stretchColumns="*">
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorAccent">
+
+            <TextView
+                android:id="@+id/TableMinus_day"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="날짜"
+                android:textSize="18dp"
+                android:textColor="#000000"
+                />
+
+            <TextView
+                android:id="@+id/TableMinus_point"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="벌점"
+                android:textSize="18dp"
+                android:textColor="#000000"
+                />
+            <TextView
+                android:id="@+id/TableMinus_reason"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="사유"
+                android:textSize="18dp"
+                android:textColor="#000000"/>
+
+        </TableRow>
+
+    </TableLayout>
+
+
+
 
 
 </LinearLayout>
