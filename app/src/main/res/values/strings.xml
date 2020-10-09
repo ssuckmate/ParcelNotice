@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">ParcelNotice</string>
+    <string name="parcel_confirm_toolbar">택배 확인</string>
+    <string name="laundry_confirm_toolbar">세탁실 확인</string>
 </resources>
