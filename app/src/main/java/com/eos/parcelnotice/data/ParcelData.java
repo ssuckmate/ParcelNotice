@@ -3,22 +3,27 @@ package com.eos.parcelnotice.data;
 import java.util.Date;
 
 public class ParcelData {
-    private Date arrival;
+    private String recipeient;
+    private String taker;
+    private String status;
+    private String createdAt;
+    private String updatedAt;
+    private String userId;
 
-    public Date getArrival() {
-        return arrival;
+    public String getRecipeient() {
+        return recipeient;
     }
 
-    public void setArrival(Date arrival) {
-        this.arrival = arrival;
+    public void setRecipeient(String recipeient) {
+        this.recipeient = recipeient;
     }
 
-    public String getRecipient() {
-        return recipient;
+    public String getTaker() {
+        return taker;
     }
 
-    public void setRecipient(String recipient) {
-        this.recipient = recipient;
+    public void setTaker(String taker) {
+        this.taker = taker;
     }
 
     public String getStatus() {
@@ -29,12 +34,27 @@ public class ParcelData {
         this.status = status;
     }
 
-    private String recipient;
-    private String status;
+    public String getCreatedAt() {
+        return createdAt;
+    }
 
-    public ParcelData(Date arrival, String recipient, String status) {
-        this.arrival = arrival;
-        this.recipient = recipient;
-        this.status = status;
+    public void setCreatedAt(String createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public String getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public void setUpdatedAt(String updatedAt) {
+        this.updatedAt = updatedAt;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 }

@@ -3,4 +3,5 @@
     <string name="kakao_app_key">7db5e83310ffb0bab5dae03efb76d735</string>
     <string name="parcel_confirm_toolbar">택배 확인</string>
     <string name="laundry_confirm_toolbar">세탁실 확인</string>
+    <string name="base_url"> http://52.78.214.64:3000/</string>
 </resources>
