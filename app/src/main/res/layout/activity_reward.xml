@@ -31,7 +31,8 @@
             android:layout_marginLeft="10dp"
             android:layout_marginTop="10dp"
             android:textColor="#000000"
-            android:textSize="20dp"/>
+            android:textSize="20dp"
+            android:fontFamily="@font/nexon_gothic_lv1_bold"/>
 
         <EditText
             android:id="@+id/EditText_plus_point"
@@ -40,7 +41,8 @@
             android:layout_marginTop="10dp"
             android:textColor="#000000"
             android:textSize="20dp"
-            android:enabled="false"/>
+            android:enabled="false"
+            android:fontFamily="@font/nexon_gothic_lv1_bold"/>
 
     </LinearLayout>
 
@@ -65,6 +67,7 @@
                 android:text="날짜"
                 android:textSize="18dp"
                 android:textColor="#000000"
+                android:fontFamily="@font/nexon_gothic_lv1_bold"
                 />
 
             <TextView
@@ -75,6 +78,7 @@
                 android:text="상점"
                 android:textSize="18dp"
                 android:textColor="#000000"
+                android:fontFamily="@font/nexon_gothic_lv1_bold"
                 />
             <TextView
                 android:id="@+id/TablePlus_reason"
@@ -83,7 +87,8 @@
                 android:layout_gravity="center"
                 android:text="사유"
                 android:textSize="18dp"
-                android:textColor="#000000"/>
+                android:textColor="#000000"
+                android:fontFamily="@font/nexon_gothic_lv1_bold"/>
 
         </TableRow>
 
@@ -101,7 +106,8 @@
             android:layout_marginLeft="10dp"
             android:layout_marginTop="10dp"
             android:textColor="#000000"
-            android:textSize="20dp"/>
+            android:textSize="20dp"
+            android:fontFamily="@font/nexon_gothic_lv1_bold"/>
 
         <EditText
             android:id="@+id/EditText_minus_point"
@@ -110,7 +116,8 @@
             android:layout_marginTop="10dp"
             android:textColor="#000000"
             android:textSize="20dp"
-            android:enabled="false"/>
+            android:enabled="false"
+            android:fontFamily="@font/nexon_gothic_lv1_bold"/>
 
     </LinearLayout>
 
@@ -134,6 +141,7 @@
                 android:text="날짜"
                 android:textSize="18dp"
                 android:textColor="#000000"
+                android:fontFamily="@font/nexon_gothic_lv1_bold"
                 />
 
             <TextView
@@ -144,6 +152,7 @@
                 android:text="벌점"
                 android:textSize="18dp"
                 android:textColor="#000000"
+                android:fontFamily="@font/nexon_gothic_lv1_bold"
                 />
             <TextView
                 android:id="@+id/TableMinus_reason"
@@ -152,7 +161,8 @@
                 android:layout_gravity="center"
                 android:text="사유"
                 android:textSize="18dp"
-                android:textColor="#000000"/>
+                android:textColor="#000000"
+                android:fontFamily="@font/nexon_gothic_lv1_bold"/>
 
         </TableRow>
 
