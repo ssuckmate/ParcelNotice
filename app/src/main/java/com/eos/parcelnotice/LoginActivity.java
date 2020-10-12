@@ -48,13 +48,13 @@ public class LoginActivity extends AppCompatActivity {
         editor = pref.edit();
 
         Session.getCurrentSession().addCallback(sessionCallBack);
-        //Session.getCurrentSession().checkAndImplicitOpen(); //카카오톡 로그인 한 번 해놓으면 이후 자동로그인 (바로 메인 페이지)
+        Session.getCurrentSession().checkAndImplicitOpen(); //카카오톡 로그인 한 번 해놓으면 이후 자동로그인 (바로 메인 페이지)
 
-        //자동로그인
+        //자동로그인 (아이디 비밀번호 자동 입력) // 그냥 바로 메인으로 가는 걸로 할까..?
         if(pref.getBoolean("autoLogin", false)){
-            editTextID.setText(pref.getString("id",""));
-            editTextPassword.setText(pref.getString("password",""));
-            checkBoxAutoLogin.setChecked(true);
+            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+            intent.putExtra("userID", pref.getString("id",""));
+            startActivity(intent);
         }
 
         btnKakaoLogin.setOnClickListener(new View.OnClickListener() {
@@ -129,7 +129,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private boolean loginValidation(String id, String password){
-        if(id.equals("1")) return false;
+        //구현하기
         return true;
     }
 
