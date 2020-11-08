@@ -6,12 +6,14 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.eos.parcelnotice.custom_dialog.JoinDialog;
 import com.kakao.auth.ApiErrorCode;
 import com.kakao.auth.AuthType;
 import com.kakao.auth.ISessionCallback;
@@ -31,6 +33,7 @@ public class LoginActivity extends AppCompatActivity {
     private Boolean loginCheck =false;
     private SharedPreferences pref;
     SharedPreferences.Editor editor;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -106,13 +109,16 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-        /*
         btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //회원가입
+                JoinDialog joinDialog = new JoinDialog(LoginActivity.this);
+                joinDialog.setCanceledOnTouchOutside(true);
+                joinDialog.setCancelable(true);
+                joinDialog.getWindow().setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT);
+                joinDialog.show();
             }
-        });*/
+        });
     }
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {

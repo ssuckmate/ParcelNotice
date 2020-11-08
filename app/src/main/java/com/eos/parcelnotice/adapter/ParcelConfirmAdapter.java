@@ -17,7 +17,7 @@ import java.util.List;
 
 public class ParcelConfirmAdapter extends RecyclerView.Adapter<ParcelConfirmAdapter.ParcelConfirmViewHolder> {
     List<ParcelData> parcels;
-    //layout manager가 호출하는 함수.
+    //layout_join manager가 호출하는 함수.
     public ParcelConfirmAdapter(List<ParcelData> parcels){
         this.parcels = parcels;
     }

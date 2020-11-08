@@ -29,6 +29,7 @@ public class ParcelConfirmActivity extends AppCompatActivity {
     private List<ParcelData> parcels;
     public static Call<List<ParcelData>> callGetParcels;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
