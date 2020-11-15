@@ -1,7 +1,6 @@
 package com.eos.parcelnotice;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -39,17 +38,18 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+         */
 
         btnRewardConfirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, RewardConfirmActivity.class);
+                Intent intent = new Intent(MainActivity.this, RewardActivity.class);
                 intent.putExtra("userID",userID);
                 startActivity(intent);
             }
 
         });
-        */
+
 
         btnNoticeConfirm.setOnClickListener(new View.OnClickListener() {
             @Override
