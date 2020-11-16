@@ -14,6 +14,9 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.eos.parcelnotice.custom_dialog.JoinDialog;
+import com.eos.parcelnotice.data.TokenVO;
+import com.eos.parcelnotice.retrofit.AuthApi;
+import com.google.gson.JsonObject;
 import com.kakao.auth.ApiErrorCode;
 import com.kakao.auth.AuthType;
 import com.kakao.auth.ISessionCallback;
@@ -24,13 +27,20 @@ import com.kakao.usermgmt.callback.MeV2ResponseCallback;
 import com.kakao.usermgmt.response.MeV2Response;
 import com.kakao.util.exception.KakaoException;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
+
 
 public class LoginActivity extends AppCompatActivity {
     private Button btnLogin,btnRegister, btnKakaoLogin;
-    private EditText editTextID, editTextPassword;
+    private EditText etEmail, editTextPassword;
     private CheckBox checkBoxAutoLogin;
     private SessionCallBack  sessionCallBack;
     private Boolean loginCheck =false;
+    private Retrofit retrofit;
     private SharedPreferences pref;
     SharedPreferences.Editor editor;
 
@@ -43,12 +53,16 @@ public class LoginActivity extends AppCompatActivity {
         btnLogin = findViewById(R.id.button_login_login);
         btnRegister = findViewById(R.id.button_login_register);
         btnKakaoLogin = findViewById(R.id.button_login_kakao);
-        editTextID = findViewById(R.id.editText_login_id);
+        etEmail = findViewById(R.id.editText_login_id);
         editTextPassword = findViewById(R.id.editText_login_password);
         checkBoxAutoLogin = findViewById(R.id.checkbox_login_autoLogin);
         sessionCallBack = new SessionCallBack();
         pref = getSharedPreferences("setting",0);
         editor = pref.edit();
+        retrofit = new Retrofit.Builder()
+                .baseUrl(getApplicationContext().getString(R.string.base_url))
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
 
         Session.getCurrentSession().addCallback(sessionCallBack);
         Session.getCurrentSession().checkAndImplicitOpen(); //카카오톡 로그인 한 번 해놓으면 이후 자동로그인 (바로 메인 페이지)
@@ -70,30 +84,34 @@ public class LoginActivity extends AppCompatActivity {
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String id = editTextID.getText().toString();
+                String email = etEmail.getText().toString();
                 String password = editTextPassword.getText().toString();
 
-                //일치하는 회원이 있는지 확인
-                Boolean validation = loginValidation(id,password);
+                JsonObject json = new JsonObject();
+                json.addProperty("email", email);
+                json.addProperty("password", password);
+                retrofit.create(AuthApi.class).login(json).enqueue(new Callback<TokenVO>() {
 
-                //로그인 성공시
-                if(validation) {
-                    if(loginCheck){
-                        editor.putString("id",id);
-                        editor.putString("password",password);
-                        editor.putBoolean("autoLogin",true);
-                        editor.commit();
+                    @Override
+                    public void onResponse(Call<TokenVO> call, Response<TokenVO> response) {
+                        if(response.isSuccessful()){
+                            Toast.makeText(LoginActivity.this,response.message().toString(),Toast.LENGTH_SHORT).show();
+                            editor.putString("token", response.body().getToken());
+                            editor.apply();
+                            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                            startActivity(intent);
+                        }else{
+                            Toast.makeText(LoginActivity.this,response.message().toString(),Toast.LENGTH_LONG).show();
+                        }
                     }
-                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                    intent.putExtra("userID", id);
-                    startActivity(intent);
-                }
-
-                else {
-                    Toast.makeText(getApplicationContext(), "아이디 또는 비밀번호가 일치하지 않습니다.", Toast.LENGTH_SHORT).show();
+                    @Override
+                    public void onFailure(Call call, Throwable t) {
+                        Toast.makeText(LoginActivity.this,"알 수 없는 에러입니다. 개발자에게 문의하세요",Toast.LENGTH_LONG).show();
+                    }
+                });
                 }
             }
-        });
+        );
 
         checkBoxAutoLogin.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -132,11 +150,6 @@ public class LoginActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         Session.getCurrentSession().removeCallback(sessionCallBack);
-    }
-
-    private boolean loginValidation(String id, String password){
-        //구현하기
-        return true;
     }
 
     private class SessionCallBack implements ISessionCallback {
