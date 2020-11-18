@@ -1,5 +1,6 @@
 package com.eos.parcelnotice.retrofit;
 
+import com.eos.parcelnotice.data.TokenVO;
 import com.eos.parcelnotice.data.UserData;
 import com.google.gson.JsonObject;
 
@@ -17,4 +18,6 @@ public interface AuthApi {
     Call<UserData> get_user(@Path("id") String userId);
     @POST("auth/join")
     Call<Object> join(@Body JsonObject jsonObject);
+    @POST("auth/login")
+    Call<TokenVO> login(@Body JsonObject jsonObject);
 }
