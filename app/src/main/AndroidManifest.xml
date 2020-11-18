@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.eos.parcelnotice" >
-
-    <uses-permission android:name="android.permission.INTERNET" />
+    package="com.eos.parcelnotice">
 
     <application
         android:name=".kakao.GlobalApplication"
@@ -13,16 +11,12 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".RewardActivity" >
-        </activity>
+        <activity android:name=".LaundryConfirmActivity"></activity>
+        <activity android:name=".RewardActivity"></activity>
 
-        <meta-data
-            android:name="com.kakao.sdk.AppKey"
-            android:value="@string/kakao_app_key" />
+        <activity android:name=".NoticeActivity"></activity>
 
-        <activity android:name=".NoticeActivity" >
-        </activity>
-        <activity android:name=".LoginActivity" >
+        <activity android:name=".LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -31,6 +25,11 @@
         </activity>
         <activity android:name=".ParcelConfirmActivity" />
         <activity android:name=".MainActivity" />
+        <meta-data
+            android:name="com.kakao.sdk.AppKey"
+            android:value="@string/kakao_app_key" />
     </application>
+
+    <uses-permission android:name="android.permission.INTERNET" />
 
 </manifest>

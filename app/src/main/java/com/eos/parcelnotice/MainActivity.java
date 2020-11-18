@@ -30,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        /*btnLaundryConfirm.setOnClickListener(new View.OnClickListener() {
+        btnLaundryConfirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, LaundryConfirmActivity.class);
@@ -38,7 +38,6 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-         */
 
         btnRewardConfirm.setOnClickListener(new View.OnClickListener() {
             @Override
