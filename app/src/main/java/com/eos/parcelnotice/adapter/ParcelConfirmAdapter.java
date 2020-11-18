@@ -11,10 +11,20 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.eos.parcelnotice.R;
 import com.eos.parcelnotice.data.DummyData;
+import com.eos.parcelnotice.data.ParcelData;
+
+import java.util.List;
 
 public class ParcelConfirmAdapter extends RecyclerView.Adapter<ParcelConfirmAdapter.ParcelConfirmViewHolder> {
+    List<ParcelData> parcels;
+    //layout_join manager가 호출하는 함수.
+    public ParcelConfirmAdapter(List<ParcelData> parcels){
+        this.parcels = parcels;
+    }
+    public ParcelConfirmAdapter(){
 
-    //layout manager가 호출하는 함수.
+    }
+
     @NonNull
     @Override
     public ParcelConfirmViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -25,17 +35,17 @@ public class ParcelConfirmAdapter extends RecyclerView.Adapter<ParcelConfirmAdap
 
     @Override
     public void onBindViewHolder(@NonNull ParcelConfirmViewHolder holder, int position) {
-//        ParcelData parcel =DummyData.parcels.get(position);
-//        Date date = parcel.getArrival();
-//        holder.tvArrival.setText(date.getYear()+"년 "+ date.getMonth()+"월"+date.getDay()+"일 도착 예정");
-//        holder.tvRecipient.setText(parcel.getRecipient());
-//        holder.tvStatus.setText(parcel.getStatus());
+        ParcelData parcel =parcels.get(position);
+
+        holder.tvArrival.setText(parcel.getCreatedAt());
+        holder.tvRecipient.setText(parcel.getRecipeient());
+        holder.tvStatus.setText(parcel.getStatus());
     }
 
     @Override
     public int getItemCount() {
-        int size = DummyData.parcels.size();
-        return size;
+
+        return parcels.size();
     }
 
     protected static class ParcelConfirmViewHolder extends RecyclerView.ViewHolder{
