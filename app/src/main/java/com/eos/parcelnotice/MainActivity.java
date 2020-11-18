@@ -1,7 +1,6 @@
 package com.eos.parcelnotice;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -31,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        /*btnLaundryConfirm.setOnClickListener(new View.OnClickListener() {
+        btnLaundryConfirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, LaundryConfirmActivity.class);
