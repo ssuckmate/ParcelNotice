@@ -84,7 +84,7 @@ public class LoginActivity extends AppCompatActivity {
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String email = etEmail.getText().toString();
+                final String email = etEmail.getText().toString();
                 String password = editTextPassword.getText().toString();
 
                 JsonObject json = new JsonObject();
@@ -99,6 +99,7 @@ public class LoginActivity extends AppCompatActivity {
                             editor.putString("token", response.body().getToken());
                             editor.apply();
                             Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                            intent.putExtra("userID", email);
                             startActivity(intent);
                         }else{
                             Toast.makeText(LoginActivity.this,response.message().toString(),Toast.LENGTH_LONG).show();

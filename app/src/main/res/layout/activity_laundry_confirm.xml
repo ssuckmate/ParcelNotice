@@ -23,10 +23,13 @@
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/laundry_confirm_toolbar"
         android:layout_width="match_parent"
-        android:layout_gravity="center"
         android:layout_height="60dp"
+        android:layout_gravity="center"
         android:background="@color/colorPrimary"
-        app:title="@string/laundry_confirmt_toolbar"
-        android:theme="@style/ToolbarTheme"/>
+        android:theme="@style/ToolbarTheme"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:title="@string/laundry_confirmt_toolbar" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
