@@ -38,7 +38,7 @@ public class ParcelConfirmAdapter extends RecyclerView.Adapter<ParcelConfirmAdap
         ParcelData parcel =parcels.get(position);
 
         holder.tvArrival.setText(parcel.getCreatedAt());
-        holder.tvRecipient.setText(parcel.getRecipeient());
+        holder.tvRecipient.setText(parcel.getRecipient());
         holder.tvStatus.setText(parcel.getStatus());
     }
 

@@ -99,7 +99,6 @@ public class LoginActivity extends AppCompatActivity {
                             editor.putString("token", response.body().getToken());
                             editor.apply();
                             Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                            intent.putExtra("userID", email);
                             startActivity(intent);
                         }else{
                             Toast.makeText(LoginActivity.this,response.message().toString(),Toast.LENGTH_LONG).show();

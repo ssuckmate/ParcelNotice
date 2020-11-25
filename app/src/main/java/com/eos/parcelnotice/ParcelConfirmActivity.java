@@ -5,6 +5,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
@@ -12,6 +13,7 @@ import android.widget.Toast;
 import com.eos.parcelnotice.adapter.ParcelConfirmAdapter;
 import com.eos.parcelnotice.data.ParcelData;
 import com.eos.parcelnotice.retrofit.ParcelApi;
+import com.google.gson.JsonObject;
 
 import java.util.List;
 
@@ -28,12 +30,15 @@ public class ParcelConfirmActivity extends AppCompatActivity {
     private Callback<List<ParcelData>> retrofitCallback;
     private List<ParcelData> parcels;
     public static Call<List<ParcelData>> callGetParcels;
+    private SharedPreferences pref;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_parcel_confirm);
+
+        pref = getSharedPreferences("setting",0);
 
         initToolbar();
         initRecyclerView();
@@ -54,12 +59,14 @@ public class ParcelConfirmActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
     }
     void initRetrofit(){
+        JsonObject json = new JsonObject();
+        json.addProperty("token", pref.getString("token",""));
         callGetParcels = new Retrofit.Builder()
                 .baseUrl(getString(R.string.base_url))
                 .addConverterFactory(GsonConverterFactory.create())
                 .build()
                 .create(ParcelApi.class)
-                .get_parcels();
+                .get_parcels(json);
     }
     void initCallback(){
         retrofitCallback = new Callback<List<ParcelData>>() {

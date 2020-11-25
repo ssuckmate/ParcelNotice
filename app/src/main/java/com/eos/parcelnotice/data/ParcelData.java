@@ -3,19 +3,19 @@ package com.eos.parcelnotice.data;
 import java.util.Date;
 
 public class ParcelData {
-    private String recipeient;
+    private String recipient;
     private String taker;
     private String status;
     private String createdAt;
     private String updatedAt;
     private String userId;
 
-    public String getRecipeient() {
-        return recipeient;
+    public String getRecipient() {
+        return recipient;
     }
 
-    public void setRecipeient(String recipeient) {
-        this.recipeient = recipeient;
+    public void setRecipient(String recipient) {
+        this.recipient = recipient;
     }
 
     public String getTaker() {

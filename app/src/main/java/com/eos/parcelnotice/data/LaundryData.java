@@ -5,12 +5,13 @@ public class LaundryData {
     private boolean isUsed;
     private String userName;
     private String machine;
-    private int time;
+    private String time;
 
-    public LaundryData( String machine) {
-        this.isUsed = false;
-        this.userName = null;
+    public LaundryData( String machine, boolean isUsed, String userName, String time) {
+        this.isUsed = isUsed;
+        this.userName = userName;
         this.machine = machine;
+        this.time = time;
     }
 
     public boolean getIsUsed() {
@@ -40,11 +41,11 @@ public class LaundryData {
         this.machine = machine;
     }
 
-    public int getTime() {
+    public String getTime() {
         return time;
     }
 
-    public void setTime(int time) {
+    public void setTime(String time) {
         this.time = time;
     }
 }

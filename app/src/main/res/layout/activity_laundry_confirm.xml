@@ -7,18 +7,26 @@
     tools:context=".LaundryConfirmActivity">
 
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/laundry_confirm_recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:scrollbars="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/laundry_confirm_toolbar" />
 
     <GridView
         android:id="@+id/laundry_confirm_gridView"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:numColumns="2"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/laundry_confirm_toolbar"
-        app:layout_constraintVertical_bias="0.0"
-        android:numColumns="2"/>
+        app:layout_constraintTop_toBottomOf="@+id/laundry_confirm_recyclerView" />
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/laundry_confirm_toolbar"
