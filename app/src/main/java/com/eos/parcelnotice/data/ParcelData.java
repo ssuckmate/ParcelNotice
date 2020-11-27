@@ -8,7 +8,7 @@ public class ParcelData {
     private String status;
     private String createdAt;
     private String updatedAt;
-    private String userId;
+    private String id;
 
     public String getRecipient() {
         return recipient;
@@ -50,11 +50,11 @@ public class ParcelData {
         this.updatedAt = updatedAt;
     }
 
-    public String getUserId() {
-        return userId;
+    public String getId() {
+        return id;
     }
 
-    public void setUserId(String userId) {
-        this.userId = userId;
+    public void setId(String id) {
+        this.id = id;
     }
 }

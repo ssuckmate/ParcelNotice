@@ -23,5 +23,5 @@ public interface ParcelApi {
     @PUT("user/parcel/changeStatus")
     Call change_parcel_status(@Body JsonObject jsonObject);
     @DELETE("user/parcel/delete")
-    Call<ParcelData> delete_parcels(@Body JsonObject jsonObject);
+    Call<ParcelData> delete_parcel(@Body JsonObject jsonObject);
 }

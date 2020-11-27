@@ -24,13 +24,14 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ParcelConfirmActivity extends AppCompatActivity {
-    private RecyclerView recyclerView;
-    private RecyclerView.Adapter adapter;
+    private static RecyclerView recyclerView;
+    private static RecyclerView.Adapter adapter;
     private RecyclerView.LayoutManager layoutManager;
     private Callback<List<ParcelData>> retrofitCallback;
     private List<ParcelData> parcels;
     public static Call<List<ParcelData>> callGetParcels;
-    private SharedPreferences pref;
+    private static SharedPreferences pref;
+    public static ParcelApi parcelApi;
 
 
     @Override
@@ -59,14 +60,14 @@ public class ParcelConfirmActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
     }
     void initRetrofit(){
-        JsonObject json = new JsonObject();
-        json.addProperty("token", pref.getString("token",""));
-        callGetParcels = new Retrofit.Builder()
+        parcelApi = new Retrofit.Builder()
                 .baseUrl(getString(R.string.base_url))
                 .addConverterFactory(GsonConverterFactory.create())
                 .build()
-                .create(ParcelApi.class)
-                .get_parcels(json);
+                .create(ParcelApi.class);
+        JsonObject json = new JsonObject();
+        json.addProperty("token", getToken());
+        callGetParcels =parcelApi.get_parcels(json);
     }
     void initCallback(){
         retrofitCallback = new Callback<List<ParcelData>>() {
@@ -84,6 +85,18 @@ public class ParcelConfirmActivity extends AppCompatActivity {
         };
     }
 
+    public static String getToken(){
+        return pref.getString("token","");
+    }
+
+    public static void changeParcelStatus(JsonObject jsonObject){
+        parcelApi.change_parcel_status(jsonObject);
+        recyclerView.setAdapter(adapter);
+    }
+    public static void deleteParcel(JsonObject jsonObject){
+        parcelApi.delete_parcel(jsonObject);
+        recyclerView.setAdapter(adapter);
+    }
 
 
     @Override
