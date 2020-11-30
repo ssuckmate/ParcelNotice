@@ -82,11 +82,17 @@ public class LoginActivity extends AppCompatActivity {
         });
 
         btnLogin.setOnClickListener(new View.OnClickListener() {
-                                        @Override
-                                        public void onClick(View view) {
-                                            Intent intent = new Intent(LoginActivity.this,MainActivity.class);
-                                            startActivity(intent);
+
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(LoginActivity.this,MainActivity.class);
+                startActivity(intent);
                 /*final String email = etEmail.getText().toString();
+=======
+            @Override
+            public void onClick(View view) {
+                final String email = etEmail.getText().toString();
+>>>>>>> 06fe6826e396e62152fd47449b3fa90e96607433
                 String password = editTextPassword.getText().toString();
 
                 JsonObject json = new JsonObject();

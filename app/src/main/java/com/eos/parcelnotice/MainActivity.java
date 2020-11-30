@@ -19,7 +19,7 @@ public class MainActivity extends AppCompatActivity {
         btnRewardConfirm = findViewById(R.id.button_main_reward);
         btnNoticeConfirm = findViewById(R.id.button_main_notice);
         Intent i = getIntent();
-        final String userID = getIntent().getStringExtra("userID");
+        final String userID = i.getStringExtra("userID");
 
         btnParcelConfirm.setOnClickListener(new View.OnClickListener() {
             @Override

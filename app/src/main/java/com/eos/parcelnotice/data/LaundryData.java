@@ -1,14 +1,28 @@
 package com.eos.parcelnotice.data;
 
-public class LaundryData {
-    private boolean isUsed;
-    private String userId;
-    private String machine;
 
-    public LaundryData( String machine) {
-        this.isUsed = false;
-        this.userId = null;
-        this.machine = machine;
+public class LaundryData {
+    private String status;
+    private int id;
+    private int occupant;
+    private int dormitory;
+    private boolean isUsed;
+    private String userName;
+    private String machine;
+    private volatile int time;
+
+    public LaundryData( String machine,  String userName, String status) {
+        this.machine=machine;
+        this.userName =userName;
+        this.status=status;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     public boolean getIsUsed() {
@@ -22,12 +36,12 @@ public class LaundryData {
         isUsed = !isUsed;
     }
 
-    public String getUserId() {
-        return userId;
+    public String getUserName() {
+        return userName;
     }
 
-    public void setUserId(String userId) {
-        this.userId = userId;
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
     public String getMachine() {
@@ -36,5 +50,13 @@ public class LaundryData {
 
     public void setMachine(String machine) {
         this.machine = machine;
+    }
+
+    public int getTime() {
+        return time;
+    }
+
+    public synchronized void setTime(int time) {
+        this.time = time;
     }
 }

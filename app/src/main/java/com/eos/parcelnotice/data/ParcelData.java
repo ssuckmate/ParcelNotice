@@ -1,21 +1,46 @@
 package com.eos.parcelnotice.data;
 
-import java.util.Date;
 
 public class ParcelData {
-    private String recipeient;
-    private String taker;
-    private String status;
+    private String recipient;
     private String createdAt;
     private String updatedAt;
-    private String userId;
+    private int id;
+    private String sender;
+    private String status;
+    private String taker;
 
-    public String getRecipeient() {
-        return recipeient;
+    public ParcelData(String recipient, String createdAt, String updatedAt, int id, String sender, String status, String taker) {
+        this.recipient = recipient;
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
+        this.id = id;
+        this.sender = sender;
+        this.status = status;
+        this.taker = taker;
     }
 
-    public void setRecipeient(String recipeient) {
-        this.recipeient = recipeient;
+    public String getRecipient() {
+        return recipient;
+    }
+
+    public void setRecipient(String recipient) {
+        this.recipient = recipient;
+    }
+    public String getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(String createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public String getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public void setUpdatedAt(String updatedAt) {
+        this.updatedAt = updatedAt;
     }
 
     public String getTaker() {
@@ -34,27 +59,20 @@ public class ParcelData {
         this.status = status;
     }
 
-    public String getCreatedAt() {
-        return createdAt;
+    public String getSender() {
+        return sender;
     }
 
-    public void setCreatedAt(String createdAt) {
-        this.createdAt = createdAt;
+    public void setSender(String sender) {
+        this.sender = sender;
     }
 
-    public String getUpdatedAt() {
-        return updatedAt;
+    public int getId() {
+        return id;
     }
 
-    public void setUpdatedAt(String updatedAt) {
-        this.updatedAt = updatedAt;
+    public void setId(int id) {
+        this.id = id;
     }
 
-    public String getUserId() {
-        return userId;
-    }
-
-    public void setUserId(String userId) {
-        this.userId = userId;
-    }
 }
