@@ -37,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
                 intent.putExtra("userID",userID);
                 startActivity(intent);
             }
-        });*/
+        });
 
         btnRewardConfirm.setOnClickListener(new View.OnClickListener() {
             @Override

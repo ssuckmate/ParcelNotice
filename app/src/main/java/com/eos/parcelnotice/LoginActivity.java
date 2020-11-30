@@ -82,9 +82,11 @@ public class LoginActivity extends AppCompatActivity {
         });
 
         btnLogin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String email = etEmail.getText().toString();
+                                        @Override
+                                        public void onClick(View view) {
+                                            Intent intent = new Intent(LoginActivity.this,MainActivity.class);
+                                            startActivity(intent);
+                /*final String email = etEmail.getText().toString();
                 String password = editTextPassword.getText().toString();
 
                 JsonObject json = new JsonObject();
@@ -108,9 +110,9 @@ public class LoginActivity extends AppCompatActivity {
                     public void onFailure(Call call, Throwable t) {
                         Toast.makeText(LoginActivity.this,"알 수 없는 에러입니다. 개발자에게 문의하세요",Toast.LENGTH_LONG).show();
                     }
-                });
-                }
-            }
+                });*/
+                                        }
+                                    }
         );
 
         checkBoxAutoLogin.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
