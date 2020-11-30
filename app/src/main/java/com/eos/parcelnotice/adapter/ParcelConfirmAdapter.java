@@ -18,7 +18,10 @@ import com.eos.parcelnotice.data.DummyData;
 import com.eos.parcelnotice.data.ParcelData;
 import com.google.gson.JsonObject;
 
+import java.util.ArrayList;
 import java.util.List;
+
+import retrofit2.http.GET;
 
 public class ParcelConfirmAdapter extends RecyclerView.Adapter<ParcelConfirmAdapter.ParcelConfirmViewHolder> {
     List<ParcelData> parcels;
@@ -28,7 +31,15 @@ public class ParcelConfirmAdapter extends RecyclerView.Adapter<ParcelConfirmAdap
         this.parcels = parcels;
     }
     public ParcelConfirmAdapter(){
-
+        parcels= new ArrayList<>();
+        parcels.add(new ParcelData("장보경","11/28(토) 도착","??", 1,"서시언","보관중",null));
+        parcels.add(new ParcelData("주영환","11/29(일) 도착","??", 2,"장보경","찾아감","장보경"));
+        parcels.add(new ParcelData("서시언","11/28(토) 도착","??", 3,"김현수","보관중",null));
+        parcels.add(new ParcelData("장보경","11/28(토) 도착","??", 4,"주영환","보관중",null));
+        parcels.add(new ParcelData("고세진","11/28(토) 도착","??", 5,"김현수","찾아감","고세진"));
+        parcels.add(new ParcelData("김현수","11/28(토) 도착","??", 6,"고세진","보관중",null));
+        parcels.add(new ParcelData("서시언","11/28(토) 도착","??", 7,"장보경","보관중",null));
+        parcels.add(new ParcelData("고세진","11/28(토) 도착","??", 8,"서시언","보관중",null));
     }
 
     @NonNull
@@ -39,12 +50,12 @@ public class ParcelConfirmAdapter extends RecyclerView.Adapter<ParcelConfirmAdap
         return new ParcelConfirmViewHolder(v);
     }
 
-    @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(@NonNull ParcelConfirmViewHolder holder, int position) {
         final ParcelData parcel =parcels.get(position);
 
         holder.tvArrival.setText(parcel.getCreatedAt());
+        holder.tvRecipient.setText(parcel.getRecipient());
         holder.tvRecipient.setText(parcel.getRecipient());
 
         if(parcel.getStatus().equals("보관중") || parcel.getStatus().equals("분실")){
@@ -55,13 +66,15 @@ public class ParcelConfirmAdapter extends RecyclerView.Adapter<ParcelConfirmAdap
             holder.btnReceive.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    //유저 이름 가져와서 taker로 만들기 parcel.setTaker();
+                   // parcel.setTaker(ParcelConfirmActivity.getUserName());
+                    parcel.setTaker("서시언");
                     parcel.setStatus("찾아감");
                     JsonObject json=new JsonObject();
-                    json.addProperty("token", ParcelConfirmActivity.getToken());
+                    //json.addProperty("token", ParcelConfirmActivity.getToken());
                     json.addProperty("id",parcel.getId());
                     json.addProperty("status","찾아감");
-                    ParcelConfirmActivity.changeParcelStatus(json);
+                    //ParcelConfirmActivity.changeParcelStatus(json);
+                    ParcelConfirmActivity.changedView();
                 }
             });
         }
@@ -73,23 +86,25 @@ public class ParcelConfirmAdapter extends RecyclerView.Adapter<ParcelConfirmAdap
             holder.btnCancel.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    parcel.setTaker("");
+                    parcel.setTaker(null);
                     parcel.setStatus("보관중");
                     JsonObject json=new JsonObject();
-                    json.addProperty("token", ParcelConfirmActivity.getToken());
+                    //json.addProperty("token", ParcelConfirmActivity.getToken());
                     json.addProperty("id",parcel.getId());
                     json.addProperty("status","보관중");
-                    ParcelConfirmActivity.changeParcelStatus(json);
+                    //ParcelConfirmActivity.changeParcelStatus(json);
+                    ParcelConfirmActivity.changedView();
                 }
             });
             holder.btnDelete.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     JsonObject json=new JsonObject();
-                    json.addProperty("token",ParcelConfirmActivity.getToken());
+                   // json.addProperty("token",ParcelConfirmActivity.getToken());
                     json.addProperty("id",parcel.getId());
-                    ParcelConfirmActivity.deleteParcel(json);
+                   // ParcelConfirmActivity.deleteParcel(json);
                     parcels.remove(parcel);
+                    ParcelConfirmActivity.changedView();
 
                 }
             });

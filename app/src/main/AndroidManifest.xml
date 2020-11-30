@@ -14,7 +14,7 @@
         <activity android:name=".LaundryConfirmActivity" />
         <activity android:name=".RewardActivity" />
         <activity android:name=".NoticeActivity" />
-        <activity android:name=".MainActivity">
+        <activity android:name=".LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -22,7 +22,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".ParcelConfirmActivity" />
-        <activity android:name=".LoginActivity" />
+        <activity android:name=".MainActivity" />
 
         <meta-data
             android:name="com.kakao.sdk.AppKey"

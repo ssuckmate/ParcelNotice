@@ -18,10 +18,10 @@ public interface ParcelApi {
 
     @POST("user/parcel/add")
     Call<ParcelData> post_user();
-    @POST("user/parcel/myParcels")
+    @GET("user/parcel/myParcels")
     Call<List<ParcelData>> get_parcels(@Body JsonObject jsonObject);
     @PUT("user/parcel/changeStatus")
     Call change_parcel_status(@Body JsonObject jsonObject);
     @DELETE("user/parcel/delete")
-    Call<ParcelData> delete_parcel(@Body JsonObject jsonObject);
+    Call delete_parcel(@Body JsonObject jsonObject);
 }

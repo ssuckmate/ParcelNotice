@@ -2,6 +2,7 @@ package com.eos.parcelnotice.adapter;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.os.CountDownTimer;
 import android.view.LayoutInflater;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -9,10 +10,21 @@ import android.widget.TextView;
 
 import com.eos.parcelnotice.R;
 
+import java.util.Timer;
+
 public class LaundryView extends LinearLayout {
     TextView tvLaundryMachine,tvLaundryUse,tvLaundryUser, tvLaundryTIme;
     Button btnLaundry;
+    volatile CountDownTimer timer;
 
+
+    public CountDownTimer getTimer() {
+        return timer;
+    }
+
+    public synchronized void setTimer(CountDownTimer cdt) {
+        this.timer = timer;
+    }
 
     public LaundryView(Context context) {
         super(context);
@@ -28,6 +40,7 @@ public class LaundryView extends LinearLayout {
         tvLaundryUser = (TextView) findViewById(R.id.textView_laundry_user);
         tvLaundryTIme = (TextView) findViewById(R.id.textView_laundry_time);
         btnLaundry = (Button) findViewById(R.id.laundry_button);
+        timer = null;
     }
 
     public void setLaundryMachine(String machine){
