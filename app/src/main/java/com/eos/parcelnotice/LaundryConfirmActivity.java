@@ -48,7 +48,7 @@ public class LaundryConfirmActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        //층 수 서버에서 가져오기
+
         super.onCreate(savedInstanceState);
 
         laundryAdapters = new ArrayList<>();
