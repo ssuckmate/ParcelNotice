@@ -41,8 +41,8 @@ public class LoginActivity extends AppCompatActivity {
     private SessionCallBack  sessionCallBack;
     private Boolean loginCheck =false;
     private Retrofit retrofit;
-    private SharedPreferences pref;
-    SharedPreferences.Editor editor;
+    private SharedPreferences settingPrefs, tokenPrefs;
+    private SharedPreferences.Editor settingEditor, tokenEditor;
 
 
     @Override
@@ -56,9 +56,15 @@ public class LoginActivity extends AppCompatActivity {
         etEmail = findViewById(R.id.editText_login_id);
         editTextPassword = findViewById(R.id.editText_login_password);
         checkBoxAutoLogin = findViewById(R.id.checkbox_login_autoLogin);
+
         sessionCallBack = new SessionCallBack();
-        pref = getSharedPreferences("setting",0);
-        editor = pref.edit();
+
+        settingPrefs = getSharedPreferences("setting",this.MODE_PRIVATE);
+        settingEditor = settingPrefs.edit();
+
+        tokenPrefs = getSharedPreferences("token", this.MODE_PRIVATE);
+        tokenEditor = tokenPrefs.edit();
+
         retrofit = new Retrofit.Builder()
                 .baseUrl(getApplicationContext().getString(R.string.base_url))
                 .addConverterFactory(GsonConverterFactory.create())
@@ -68,9 +74,9 @@ public class LoginActivity extends AppCompatActivity {
         Session.getCurrentSession().checkAndImplicitOpen(); //카카오톡 로그인 한 번 해놓으면 이후 자동로그인 (바로 메인 페이지)
 
         //자동로그인 (아이디 비밀번호 자동 입력) // 그냥 바로 메인으로 가는 걸로 할까..?
-        if(pref.getBoolean("autoLogin", false)){
+        if(settingPrefs.getBoolean("autoLogin", false)){
             Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-            intent.putExtra("userID", pref.getString("id",""));
+            intent.putExtra("userID", settingPrefs.getString("id",""));
             startActivity(intent);
         }
 
@@ -98,14 +104,16 @@ public class LoginActivity extends AppCompatActivity {
                 JsonObject json = new JsonObject();
                 json.addProperty("email", email);
                 json.addProperty("password", password);
-                retrofit.create(AuthApi.class).login(json).enqueue(new Callback<TokenVO>() {
+
+                Call<TokenVO> call = retrofit.create(AuthApi.class).login(json);
+                call.enqueue(new Callback<TokenVO>() {
 
                     @Override
                     public void onResponse(Call<TokenVO> call, Response<TokenVO> response) {
                         if(response.isSuccessful()){
                             Toast.makeText(LoginActivity.this,response.message().toString(),Toast.LENGTH_SHORT).show();
-                            editor.putString("token", response.body().getToken());
-                            editor.apply();
+                            tokenEditor.putString("token", response.body().getToken());
+                            tokenEditor.apply();
                             Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                             startActivity(intent);
                         }else{
@@ -129,8 +137,8 @@ public class LoginActivity extends AppCompatActivity {
                 }
                 else{
                     loginCheck = false;
-                    editor.clear();
-                    editor.commit();
+                    settingEditor.clear();
+                    settingEditor.commit();
                 }
             }
         });
