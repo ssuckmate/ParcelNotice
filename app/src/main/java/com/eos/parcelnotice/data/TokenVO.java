@@ -1,6 +1,9 @@
 package com.eos.parcelnotice.data;
 
+import com.google.gson.annotations.SerializedName;
+
 public class TokenVO {
+    @SerializedName("token")
     private String token;
 
     public String getToken(){
