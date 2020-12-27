@@ -4,7 +4,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.NotificationCompat;
 import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.Notification;
 import android.app.NotificationChannel;
@@ -19,7 +18,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
-import android.widget.GridView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
@@ -27,7 +25,6 @@ import com.eos.parcelnotice.adapter.LaundryFloorAdapter;
 import com.eos.parcelnotice.adapter.LaundryView;
 import com.eos.parcelnotice.data.LaundryData;
 import com.eos.parcelnotice.databinding.ActivityLaundryConfirmBinding;
-import com.eos.parcelnotice.databinding.ActivityMainBinding;
 import com.eos.parcelnotice.retrofit.LaundryApi;
 import com.google.gson.JsonObject;
 
@@ -52,6 +49,7 @@ public class LaundryConfirmActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this,R.layout.activity_laundry_confirm);
+        binding.setActivity(this);
 
         laundryAdapters = new ArrayList<>();
         LinearLayoutManager layoutManager = new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false);

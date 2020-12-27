@@ -12,7 +12,6 @@ import com.eos.parcelnotice.databinding.ActivityNoticeBinding;
 
 
 public class NoticeActivity extends AppCompatActivity {
-    EditText ed_notice;
     DummyData dummyData = new DummyData();
     ActivityNoticeBinding binding;
 
@@ -20,6 +19,7 @@ public class NoticeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this,R.layout.activity_notice);
+        binding.setActivity(this);
 
         binding.editTextNotice.setText(DummyData.Notice);
 

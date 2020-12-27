@@ -44,6 +44,7 @@ public class ParcelConfirmActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this,R.layout.activity_parcel_confirm);
+        binding.setActivity(this);
 
         //pref = getSharedPreferences("setting",0);
 

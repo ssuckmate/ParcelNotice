@@ -53,7 +53,6 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this,R.layout.activity_login);
         binding.setActivity(this);
-        setContentView(R.layout.activity_login);
 
         sessionCallBack = new SessionCallBack();
 
