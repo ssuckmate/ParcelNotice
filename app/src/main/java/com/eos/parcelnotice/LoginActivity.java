@@ -44,16 +44,25 @@ public class LoginActivity extends AppCompatActivity {
     private SharedPreferences pref;
     SharedPreferences.Editor editor;
     ActivityLoginBinding binding;
+    private SharedPreferences settingPrefs, tokenPrefs;
+    private SharedPreferences.Editor settingEditor, tokenEditor;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this,R.layout.activity_login);
         binding.setActivity(this);
+        setContentView(R.layout.activity_login);
 
         sessionCallBack = new SessionCallBack();
-        pref = getSharedPreferences("setting",0);
-        editor = pref.edit();
+
+        settingPrefs = getSharedPreferences("setting",this.MODE_PRIVATE);
+        settingEditor = settingPrefs.edit();
+
+        tokenPrefs = getSharedPreferences("token", this.MODE_PRIVATE);
+        tokenEditor = tokenPrefs.edit();
+
         retrofit = new Retrofit.Builder()
                 .baseUrl(getApplicationContext().getString(R.string.base_url))
                 .addConverterFactory(GsonConverterFactory.create())
@@ -63,9 +72,9 @@ public class LoginActivity extends AppCompatActivity {
         Session.getCurrentSession().checkAndImplicitOpen(); //카카오톡 로그인 한 번 해놓으면 이후 자동로그인 (바로 메인 페이지)
 
         //자동로그인 (아이디 비밀번호 자동 입력) // 그냥 바로 메인으로 가는 걸로 할까..?
-        if(pref.getBoolean("autoLogin", false)){
+        if(settingPrefs.getBoolean("autoLogin", false)){
             Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-            intent.putExtra("userID", pref.getString("id",""));
+            intent.putExtra("userID", settingPrefs.getString("id",""));
             startActivity(intent);
         }
 
@@ -85,14 +94,16 @@ public class LoginActivity extends AppCompatActivity {
                 JsonObject json = new JsonObject();
                 json.addProperty("email", email);
                 json.addProperty("password", password);
-                retrofit.create(AuthApi.class).login(json).enqueue(new Callback<TokenVO>() {
+
+                Call<TokenVO> call = retrofit.create(AuthApi.class).login(json);
+                call.enqueue(new Callback<TokenVO>() {
 
                     @Override
                     public void onResponse(Call<TokenVO> call, Response<TokenVO> response) {
                         if(response.isSuccessful()){
                             Toast.makeText(LoginActivity.this,response.message().toString(),Toast.LENGTH_SHORT).show();
-                            editor.putString("token", response.body().getToken());
-                            editor.apply();
+                            tokenEditor.putString("token", response.body().getToken());
+                            tokenEditor.apply();
                             Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                             startActivity(intent);
                         }else{
@@ -104,8 +115,7 @@ public class LoginActivity extends AppCompatActivity {
                         Toast.makeText(LoginActivity.this,"알 수 없는 에러입니다. 개발자에게 문의하세요",Toast.LENGTH_LONG).show();
                     }
                 });
-                }
-            }
+            }}
         );
 
         binding.checkboxLoginAutoLogin.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -116,8 +126,8 @@ public class LoginActivity extends AppCompatActivity {
                 }
                 else{
                     loginCheck = false;
-                    editor.clear();
-                    editor.commit();
+                    settingEditor.clear();
+                    settingEditor.commit();
                 }
             }
         });

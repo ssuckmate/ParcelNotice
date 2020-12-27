@@ -17,7 +17,6 @@
         android:orientation="vertical"
         tools:context=".NoticeActivity">
 
-
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolBar_notice"
             android:layout_width="match_parent"
@@ -168,7 +167,5 @@
         </TableLayout>
 
     </LinearLayout>
-
-
 
 </layout>
