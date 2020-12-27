@@ -2,6 +2,7 @@ package com.eos.parcelnotice;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.NotificationCompat;
+import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -25,6 +26,8 @@ import android.widget.Toast;
 import com.eos.parcelnotice.adapter.LaundryFloorAdapter;
 import com.eos.parcelnotice.adapter.LaundryView;
 import com.eos.parcelnotice.data.LaundryData;
+import com.eos.parcelnotice.databinding.ActivityLaundryConfirmBinding;
+import com.eos.parcelnotice.databinding.ActivityMainBinding;
 import com.eos.parcelnotice.retrofit.LaundryApi;
 import com.google.gson.JsonObject;
 
@@ -39,24 +42,20 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 
 public class LaundryConfirmActivity extends AppCompatActivity {
-    RecyclerView recyclerView;
     LaundryFloorAdapter floorAdapter;
-    static GridView gridView;
     static int currentFloor, totalFloor;
     static ArrayList<LaundryAdapter> laundryAdapters;
     private LaundryApi laundryApi;
+    static ActivityLaundryConfirmBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
+        binding = DataBindingUtil.setContentView(this,R.layout.activity_laundry_confirm);
 
         laundryAdapters = new ArrayList<>();
-        setContentView(R.layout.activity_laundry_confirm);
-        gridView= (GridView) findViewById(R.id.laundry_confirm_gridView);
-        recyclerView = findViewById(R.id.laundry_confirm_recyclerView);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false);
-        recyclerView.setLayoutManager(layoutManager);
+        binding.laundryConfirmRecyclerView.setLayoutManager(layoutManager);
         floorAdapter = new LaundryFloorAdapter(this);
 
         //init();
@@ -81,14 +80,14 @@ public class LaundryConfirmActivity extends AppCompatActivity {
             laundryAdapters.add(laundryAdapter);
         }
         setCurrentFloor(0);
-        recyclerView.setAdapter(floorAdapter);
-        gridView.setAdapter(laundryAdapters.get(currentFloor));
+        binding.laundryConfirmRecyclerView.setAdapter(floorAdapter);
+        binding.laundryConfirmGridView.setAdapter(laundryAdapters.get(currentFloor));
 
     }
 
     public static void setCurrentFloor(int currentFloor) {
         LaundryConfirmActivity.currentFloor = currentFloor;
-        gridView.setAdapter(laundryAdapters.get(currentFloor));
+        binding.laundryConfirmGridView.setAdapter(laundryAdapters.get(currentFloor));
     }
 
 

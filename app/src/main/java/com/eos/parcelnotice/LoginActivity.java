@@ -1,11 +1,11 @@
 package com.eos.parcelnotice;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -16,6 +16,7 @@ import android.widget.Toast;
 
 import com.eos.parcelnotice.custom_dialog.JoinDialog;
 import com.eos.parcelnotice.data.TokenVO;
+import com.eos.parcelnotice.databinding.ActivityLoginBinding;
 import com.eos.parcelnotice.retrofit.AuthApi;
 import com.google.gson.JsonObject;
 import com.kakao.auth.ApiErrorCode;
@@ -36,27 +37,20 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 
 public class LoginActivity extends AppCompatActivity {
-    private Button btnLogin,btnRegister, btnKakaoLogin;
-    private EditText etEmail, editTextPassword;
-    private CheckBox checkBoxAutoLogin;
+
     private SessionCallBack  sessionCallBack;
     private Boolean loginCheck =false;
     private Retrofit retrofit;
     private SharedPreferences pref;
     SharedPreferences.Editor editor;
-
+    ActivityLoginBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+        binding = DataBindingUtil.setContentView(this,R.layout.activity_login);
+        binding.setActivity(this);
 
-        btnLogin = findViewById(R.id.button_login_login);
-        btnRegister = findViewById(R.id.button_login_register);
-        btnKakaoLogin = findViewById(R.id.button_login_kakao);
-        etEmail = findViewById(R.id.editText_login_id);
-        editTextPassword = findViewById(R.id.editText_login_password);
-        checkBoxAutoLogin = findViewById(R.id.checkbox_login_autoLogin);
         sessionCallBack = new SessionCallBack();
         pref = getSharedPreferences("setting",0);
         editor = pref.edit();
@@ -75,18 +69,18 @@ public class LoginActivity extends AppCompatActivity {
             startActivity(intent);
         }
 
-        btnKakaoLogin.setOnClickListener(new View.OnClickListener() {
+        binding.buttonLoginKakao.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Session.getCurrentSession().open(AuthType.KAKAO_LOGIN_ALL, LoginActivity.this);
             }
         });
 
-        btnLogin.setOnClickListener(new View.OnClickListener() {
+        binding.buttonLoginLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                final String email = etEmail.getText().toString();
-                String password = editTextPassword.getText().toString();
+                final String email = binding.editTextLoginId.getText().toString();
+                String password = binding.editTextLoginPassword.getText().toString();
 
                 JsonObject json = new JsonObject();
                 json.addProperty("email", email);
@@ -114,7 +108,7 @@ public class LoginActivity extends AppCompatActivity {
             }
         );
 
-        checkBoxAutoLogin.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        binding.checkboxLoginAutoLogin.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if(isChecked){
@@ -128,7 +122,7 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-        btnRegister.setOnClickListener(new View.OnClickListener() {
+        binding.buttonLoginRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 JoinDialog joinDialog = new JoinDialog(LoginActivity.this);

@@ -3,6 +3,7 @@ package com.eos.parcelnotice.adapter;
 
 import android.annotation.SuppressLint;
 import android.content.SharedPreferences;
+import android.provider.ContactsContract;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,12 +11,14 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.eos.parcelnotice.ParcelConfirmActivity;
 import com.eos.parcelnotice.R;
 import com.eos.parcelnotice.data.DummyData;
 import com.eos.parcelnotice.data.ParcelData;
+import com.eos.parcelnotice.databinding.ItemParcelConfirmRecyclerBinding;
 import com.google.gson.JsonObject;
 
 import java.util.ArrayList;
@@ -56,7 +59,7 @@ public class ParcelConfirmAdapter extends RecyclerView.Adapter<ParcelConfirmAdap
 
         holder.tvArrival.setText(parcel.getCreatedAt());
         holder.tvRecipient.setText(parcel.getRecipient());
-        holder.tvRecipient.setText(parcel.getRecipient());
+        holder.tvStatus.setText(parcel.getStatus());
 
         if(parcel.getStatus().equals("보관중") || parcel.getStatus().equals("분실")){
             holder.tvStatus.setText(parcel.getStatus());
@@ -121,8 +124,11 @@ public class ParcelConfirmAdapter extends RecyclerView.Adapter<ParcelConfirmAdap
     protected static class ParcelConfirmViewHolder extends RecyclerView.ViewHolder{
         private TextView tvArrival, tvRecipient, tvStatus;
         private Button btnReceive, btnCancel,btnDelete;
+
+
         public ParcelConfirmViewHolder(@NonNull View itemView) {
             super(itemView);
+
             tvArrival = itemView.findViewById(R.id.text_dummy_delivery_arrival_time);
             tvRecipient = itemView.findViewById(R.id.text_dummy_recipient);
             tvStatus = itemView.findViewById(R.id.text_dummy_status);

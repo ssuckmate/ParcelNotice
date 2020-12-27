@@ -1,6 +1,7 @@
 package com.eos.parcelnotice;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
 
 import android.os.Bundle;
 import android.text.style.DynamicDrawableSpan;
@@ -13,23 +14,21 @@ import android.widget.TextView;
 
 import com.eos.parcelnotice.data.DummyData;
 import com.eos.parcelnotice.data.RewardData;
+import com.eos.parcelnotice.databinding.ActivityRewardBinding;
 
 import java.text.SimpleDateFormat;
 
 public class RewardActivity extends AppCompatActivity {
 
-    private TableLayout plusTable;
-    private TableLayout minusTable;
     private int plusTotal;
     private int minusTotal;
-    private EditText ed_plusTotal;
-    private EditText ed_minusTotal;
+    ActivityRewardBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        setContentView(R.layout.activity_reward);
+        binding = DataBindingUtil.setContentView(this,R.layout.activity_reward);
+        binding.setActivity(this);
 
         plusTotal = 0;
         minusTotal = 0;
@@ -42,13 +41,10 @@ public class RewardActivity extends AppCompatActivity {
             minusTotal += DummyData.minusPoints.get(i).getPoint();
         }
 
-        ed_plusTotal = (EditText)findViewById(R.id.EditText_plus_point);
-        ed_minusTotal = (EditText)findViewById(R.id.EditText_minus_point);
 
-        ed_plusTotal.setText(plusTotal+"점");
-        ed_minusTotal.setText(minusTotal+"점");
+        binding.EditTextPlusPoint.setText(plusTotal+"점");
+        binding.EditTextMinusPoint.setText(minusTotal+"점");
 
-        plusTable = (TableLayout)findViewById(R.id.TableLayout_Plus);
 
         for(int i = 0; i < DummyData.plusPoints.size(); i++){
             TableRow tableRow = new TableRow(this);
@@ -77,11 +73,10 @@ public class RewardActivity extends AppCompatActivity {
             tv_reason.setTextSize(18);
             tableRow.addView(tv_reason);
 
-            plusTable.addView(tableRow);
+            binding.TableLayoutPlus.addView(tableRow);
         }
 
 
-        minusTable = (TableLayout)findViewById(R.id.TableLayout_Minus);
 
         for(int i = 0; i < DummyData.minusPoints.size(); i++){
             TableRow tableRow = new TableRow(this);
@@ -110,7 +105,7 @@ public class RewardActivity extends AppCompatActivity {
             tv_reason.setTextSize(18);
             tableRow.addView(tv_reason);
 
-            minusTable.addView(tableRow);
+            binding.TableLayoutMinus.addView(tableRow);
         }
 
     }
