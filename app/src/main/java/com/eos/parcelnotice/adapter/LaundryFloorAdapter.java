@@ -19,7 +19,6 @@ public class LaundryFloorAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
     private ArrayList<Integer> items;
     private Context context;
-   // private View.OnClickListener onClickListener;
 
     public class ViewHolder extends RecyclerView.ViewHolder{
         TextView tv_laundry_floor;
@@ -32,7 +31,6 @@ public class LaundryFloorAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
     public LaundryFloorAdapter(Context context){
         this.context = context;
-        //this.onClickListener = onClickListener;
         items = new ArrayList<Integer>();
     }
 

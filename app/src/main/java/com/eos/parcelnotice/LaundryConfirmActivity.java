@@ -23,8 +23,10 @@ import android.widget.Toast;
 
 import com.eos.parcelnotice.adapter.LaundryFloorAdapter;
 import com.eos.parcelnotice.adapter.LaundryView;
+import com.eos.parcelnotice.data.DormitoryData;
 import com.eos.parcelnotice.data.LaundryData;
 import com.eos.parcelnotice.databinding.ActivityLaundryConfirmBinding;
+import com.eos.parcelnotice.retrofit.DormitoryApi;
 import com.eos.parcelnotice.retrofit.LaundryApi;
 import com.google.gson.JsonObject;
 
@@ -44,6 +46,7 @@ public class LaundryConfirmActivity extends AppCompatActivity {
     static ArrayList<LaundryAdapter> laundryAdapters;
     private LaundryApi laundryApi;
     static ActivityLaundryConfirmBinding binding;
+    DormitoryData dormitory;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,27 +59,8 @@ public class LaundryConfirmActivity extends AppCompatActivity {
         binding.laundryConfirmRecyclerView.setLayoutManager(layoutManager);
         floorAdapter = new LaundryFloorAdapter(this);
 
-        //init();
+        init();
 
-        totalFloor=5;
-        int [] laundryNum = {2,3,1,2,4};
-        int [] dryNum = {3,1,2,3,1};
-        LaundryAdapter laundryAdapter;
-        for(int i=0; i<totalFloor; i++ ){
-            floorAdapter.addItem(i);
-            //서버에서 세탁기 건조기 개수 가져오기
-            laundryAdapter = new LaundryAdapter();
-            laundryAdapter.setLaundryNum(laundryNum[i]);
-            laundryAdapter.setDryNum(dryNum[i]);
-           for(int j=0; j<laundryAdapter.getLaundryNum();j++){
-               //상태 서버에서 가져오기
-                laundryAdapter.addItem(new LaundryData((i+1)+"층 세탁기"+(j+1),null,"비었음"));
-            }
-            for(int j=0;j<laundryAdapter.getDryNum();j++){
-                laundryAdapter.addItem(new LaundryData((i+1)+ "층 건조기"+(j+1),null,"비었음"));
-            }
-            laundryAdapters.add(laundryAdapter);
-        }
         setCurrentFloor(0);
         binding.laundryConfirmRecyclerView.setAdapter(floorAdapter);
         binding.laundryConfirmGridView.setAdapter(laundryAdapters.get(currentFloor));
@@ -99,7 +83,6 @@ public class LaundryConfirmActivity extends AppCompatActivity {
 
         public LaundryAdapter() {
             items = new ArrayList<>();
-
         }
 
 
@@ -303,7 +286,24 @@ public class LaundryConfirmActivity extends AppCompatActivity {
     }
 
     private void init(){
-        totalFloor = 5;
+        Call<DormitoryData> callDormidory = new Retrofit.Builder()
+                .baseUrl(getString(R.string.base_url))
+                .addConverterFactory(GsonConverterFactory.create())
+                .build()
+                .create(DormitoryApi.class)
+                .get_dormitory(ParcelConfirmActivity.getToken());
+        Callback<DormitoryData> callbackDormitory = new Callback<DormitoryData>() {
+            @Override
+            public void onResponse(Call<DormitoryData> call, Response<DormitoryData> response) {
+                dormitory = response.body();
+            }
+
+            @Override
+            public void onFailure(Call<DormitoryData> call, Throwable t) {
+                Toast.makeText(LaundryConfirmActivity.this,t.getMessage(),Toast.LENGTH_LONG).show();
+            }
+        };
+        totalFloor = dormitory.getStory();
         laundryApi = new Retrofit.Builder()
                 .baseUrl(getString(R.string.base_url))
                 .addConverterFactory(GsonConverterFactory.create())
@@ -311,9 +311,8 @@ public class LaundryConfirmActivity extends AppCompatActivity {
                 .create(LaundryApi.class);
         for(int i=0; i<totalFloor; i++){
             JsonObject jsonObject = new JsonObject();
-            jsonObject.addProperty("token",ParcelConfirmActivity.getToken());
             jsonObject.addProperty("floor",i);
-            Call<ArrayList<LaundryData>> callLaundryList = laundryApi.get_laundry_list(jsonObject);
+            Call<ArrayList<LaundryData>> callLaundryList = laundryApi.get_laundry_list(ParcelConfirmActivity.getToken(),jsonObject);
             Callback<ArrayList<LaundryData>> callback = new Callback<ArrayList<LaundryData>>() {
                 @Override
                 public void onResponse(Call<ArrayList<LaundryData>> call, Response<ArrayList<LaundryData>> response) {
@@ -331,9 +330,8 @@ public class LaundryConfirmActivity extends AppCompatActivity {
     }
     private void changeLaundryStatusInServer(String status){
         JsonObject jsonObject = new JsonObject();
-        jsonObject.addProperty("token", ParcelConfirmActivity.getToken());
         jsonObject.addProperty("status",status);
-        laundryApi.change_laundry_status(jsonObject);
+        laundryApi.change_laundry_status(ParcelConfirmActivity.getToken(),jsonObject);
     }
 
 }
