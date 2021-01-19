@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.eos.parcelnotice.adapter.ParcelConfirmAdapter;
@@ -27,17 +28,10 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ParcelConfirmActivity extends AppCompatActivity {
-    private static RecyclerView.Adapter adapter;
-    private RecyclerView.LayoutManager layoutManager;
-    private Callback<List<ParcelData>> retrofitCallback;
-    private List<ParcelData> parcels;
-    private Call<List<ParcelData>> callGetParcels;
-    private Call<UserData> callGetUserData;
-    private Callback<UserData> callback;
-    private static UserData userData;
     private static SharedPreferences pref;
     private static ParcelApi parcelApi;
     static ActivityParcelConfirmBinding binding;
+    private static ParcelConfirmAdapter adapter;
 
 
     @Override
@@ -46,49 +40,27 @@ public class ParcelConfirmActivity extends AppCompatActivity {
         binding = DataBindingUtil.setContentView(this,R.layout.activity_parcel_confirm);
         binding.setActivity(this);
 
-        //pref = getSharedPreferences("setting",0);
+        pref = getSharedPreferences("token",0);
 
-        initRecyclerView();
-        //
-        adapter = new ParcelConfirmAdapter();
-        binding.parcelConfirmRecyclerview.setAdapter(adapter);
-        //
-        //initCallback();
-        //initRetrofit();
-       // callGetParcels.enqueue(retrofitCallback);
-       // callGetUserData.enqueue(callback);
+        init();
     }
 
-    void initRecyclerView(){
-        binding.parcelConfirmRecyclerview.setHasFixedSize(true);
-        layoutManager = new LinearLayoutManager(this);
-        binding.parcelConfirmRecyclerview.setLayoutManager(layoutManager);
-    }
-
-    void initRetrofit(){
+    private void init() {
         parcelApi = new Retrofit.Builder()
                 .baseUrl(getString(R.string.base_url))
                 .addConverterFactory(GsonConverterFactory.create())
                 .build()
                 .create(ParcelApi.class);
 
-        JsonObject json = new JsonObject();
-        json.addProperty("token",getToken());
-        callGetUserData = new Retrofit.Builder()
-                .baseUrl(getString(R.string.base_url))
-                .addConverterFactory(GsonConverterFactory.create())
-                .build()
-                .create(UserApi.class)
-                .get_user(json);
-        callGetParcels =parcelApi.get_parcels(json);
-    }
-    void initCallback(){
-        retrofitCallback = new Callback<List<ParcelData>>() {
+        Call<List<ParcelData>> callGetParcels =parcelApi.get_parcels(getToken());
+
+        Callback<List<ParcelData>> retrofitCallback = new Callback<List<ParcelData>>() {
             @Override
             public void onResponse(Call<List<ParcelData>> call, Response<List<ParcelData>> response) {
-                parcels = response.body();
+                binding.parcelConfirmRecyclerview.setHasFixedSize(true);
+                LinearLayoutManager layoutManager = new LinearLayoutManager(ParcelConfirmActivity.this);
                 binding.parcelConfirmRecyclerview.setLayoutManager(layoutManager);
-                adapter = new ParcelConfirmAdapter(parcels);
+                adapter = new ParcelConfirmAdapter(response.body());
                 binding.parcelConfirmRecyclerview.setAdapter(adapter);
             }
             @Override
@@ -96,17 +68,9 @@ public class ParcelConfirmActivity extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(),t.getMessage(),Toast.LENGTH_LONG).show();
             }
         };
-        callback = new Callback<UserData>() {
-            @Override
-            public void onResponse(Call<UserData> call, Response<UserData> response) {
-                userData = response.body();
-            }
 
-            @Override
-            public void onFailure(Call<UserData> call, Throwable t) {
-                Toast.makeText(getApplicationContext(),t.getMessage(),Toast.LENGTH_LONG).show();
-            }
-        };
+        callGetParcels.enqueue(retrofitCallback);
+
     }
 
 
@@ -115,20 +79,14 @@ public class ParcelConfirmActivity extends AppCompatActivity {
     }
 
     public static void changeParcelStatus(JsonObject jsonObject){
-        parcelApi.change_parcel_status(jsonObject);
+        parcelApi.change_parcel_status(getToken(),jsonObject);
         binding.parcelConfirmRecyclerview.setAdapter(adapter);
     }
     public static void deleteParcel(JsonObject jsonObject){
-        parcelApi.delete_parcel(jsonObject);
+        parcelApi.delete_parcel(getToken(),jsonObject);
         binding.parcelConfirmRecyclerview.setAdapter(adapter);
     }
 
-    public static String getUserName(){
-        return userData.getName();
-    }
-    public static void changedView(){
-        binding.parcelConfirmRecyclerview.setAdapter(adapter);
-    }
 
 
     @Override

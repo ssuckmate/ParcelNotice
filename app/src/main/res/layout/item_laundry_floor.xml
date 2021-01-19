@@ -19,7 +19,6 @@
         android:textColor="#FFFFFF"
         android:textSize="30sp"
         android:background="@drawable/all_button_background"
-        android:backgroundTint="@color/colorPrimaryDark"
         android:gravity="center"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

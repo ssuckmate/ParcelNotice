@@ -19,9 +19,9 @@ public interface ParcelApi {
 
 
     @GET("user/parcel/myParcels")
-    Call<List<ParcelData>> get_parcels(@Header("token") String token,@Body JsonObject jsonObject);
+    Call<List<ParcelData>> get_parcels(@Header("token") String token);
     @PUT("user/parcel/changeStatus")
-    Call change_parcel_status(@Header("token") String token,@Body JsonObject jsonObject);
+    Call<Object> change_parcel_status(@Header("token") String token,@Body JsonObject jsonObject);
     @DELETE("user/parcel/delete")
-    Call delete_parcel(@Header("token") String token,@Body JsonObject jsonObject);
+    Call<Object> delete_parcel(@Header("token") String token,@Body JsonObject jsonObject);
 }

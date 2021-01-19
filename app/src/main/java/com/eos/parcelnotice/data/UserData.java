@@ -11,8 +11,8 @@ public class UserData {
     private boolean isAuthed;
     private int penalty;
     private int advantage;
-    private int room;
     private int dormitory;
+    private int room;
 
     public int getId() {
         return id;
@@ -109,4 +109,5 @@ public class UserData {
     public void setDormitory(int dormitory) {
         this.dormitory = dormitory;
     }
+
 }

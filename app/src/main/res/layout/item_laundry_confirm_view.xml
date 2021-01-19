@@ -16,9 +16,9 @@
         android:id="@+id/textView_laundry_machine"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:textSize="18sp"
+        android:layout_marginTop="8dp"
         android:text="1번 세탁기"
+        android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -27,9 +27,10 @@
         android:id="@+id/textView_laundry_use"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="93dp"
+        android:layout_marginTop="90dp"
         android:text=" 사용중"
         android:textSize="25sp"
+        android:gravity="center"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.519"
         app:layout_constraintStart_toStartOf="parent"
@@ -39,34 +40,36 @@
         android:id="@+id/textView_laundry_user"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="36dp"
         android:text="사용자 : 장보경"
-        android:textSize="12sp"
+        android:textSize="15sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.504"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView_laundry_use" />
+        app:layout_constraintTop_toBottomOf="@+id/textView_laundry_time" />
 
     <Button
         android:id="@+id/laundry_button"
         android:layout_width="80dp"
         android:layout_height="40dp"
-        android:layout_marginTop="3dp"
+        android:layout_marginTop="4dp"
         android:text="세탁완료"
         android:textSize="13sp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.51"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView_laundry_time" />
+        app:layout_constraintTop_toBottomOf="@+id/textView_laundry_user" />
 
     <TextView
         android:id="@+id/textView_laundry_time"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="3dp"
+        android:layout_marginTop="2dp"
         android:text="kk"
-        android:textSize="12sp"
+        android:gravity="center"
+        android:textSize="15sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView_laundry_user" />
+        app:layout_constraintTop_toBottomOf="@+id/textView_laundry_use" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

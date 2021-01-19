@@ -26,6 +26,10 @@ import java.util.List;
 
 import retrofit2.http.GET;
 
+import static com.eos.parcelnotice.MainActivity.getMyInfo;
+import static com.eos.parcelnotice.ParcelConfirmActivity.changeParcelStatus;
+import static com.eos.parcelnotice.ParcelConfirmActivity.deleteParcel;
+
 public class ParcelConfirmAdapter extends RecyclerView.Adapter<ParcelConfirmAdapter.ParcelConfirmViewHolder> {
     List<ParcelData> parcels;
 
@@ -33,17 +37,7 @@ public class ParcelConfirmAdapter extends RecyclerView.Adapter<ParcelConfirmAdap
     public ParcelConfirmAdapter(List<ParcelData> parcels){
         this.parcels = parcels;
     }
-    public ParcelConfirmAdapter(){
-        parcels= new ArrayList<>();
-        parcels.add(new ParcelData("장보경","11/28(토) 도착","??", 1,"서시언","보관중",null));
-        parcels.add(new ParcelData("주영환","11/29(일) 도착","??", 2,"장보경","찾아감","장보경"));
-        parcels.add(new ParcelData("서시언","11/28(토) 도착","??", 3,"김현수","보관중",null));
-        parcels.add(new ParcelData("장보경","11/28(토) 도착","??", 4,"주영환","보관중",null));
-        parcels.add(new ParcelData("고세진","11/28(토) 도착","??", 5,"김현수","찾아감","고세진"));
-        parcels.add(new ParcelData("김현수","11/28(토) 도착","??", 6,"고세진","보관중",null));
-        parcels.add(new ParcelData("서시언","11/28(토) 도착","??", 7,"장보경","보관중",null));
-        parcels.add(new ParcelData("고세진","11/28(토) 도착","??", 8,"서시언","보관중",null));
-    }
+
 
     @NonNull
     @Override
@@ -69,15 +63,12 @@ public class ParcelConfirmAdapter extends RecyclerView.Adapter<ParcelConfirmAdap
             holder.btnReceive.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                   // parcel.setTaker(ParcelConfirmActivity.getUserName());
-                    parcel.setTaker("서시언");
+                    parcel.setTaker(getMyInfo().getName());
                     parcel.setStatus("찾아감");
                     JsonObject json=new JsonObject();
-                    //json.addProperty("token", ParcelConfirmActivity.getToken());
                     json.addProperty("id",parcel.getId());
                     json.addProperty("status","찾아감");
-                    //ParcelConfirmActivity.changeParcelStatus(json);
-                    ParcelConfirmActivity.changedView();
+                    changeParcelStatus(json);
                 }
             });
         }
@@ -92,23 +83,18 @@ public class ParcelConfirmAdapter extends RecyclerView.Adapter<ParcelConfirmAdap
                     parcel.setTaker(null);
                     parcel.setStatus("보관중");
                     JsonObject json=new JsonObject();
-                    //json.addProperty("token", ParcelConfirmActivity.getToken());
                     json.addProperty("id",parcel.getId());
                     json.addProperty("status","보관중");
-                    //ParcelConfirmActivity.changeParcelStatus(json);
-                    ParcelConfirmActivity.changedView();
+                    changeParcelStatus(json);
                 }
             });
             holder.btnDelete.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     JsonObject json=new JsonObject();
-                   // json.addProperty("token",ParcelConfirmActivity.getToken());
                     json.addProperty("id",parcel.getId());
-                   // ParcelConfirmActivity.deleteParcel(json);
+                    deleteParcel(json);
                     parcels.remove(parcel);
-                    ParcelConfirmActivity.changedView();
-
                 }
             });
         }
@@ -117,7 +103,6 @@ public class ParcelConfirmAdapter extends RecyclerView.Adapter<ParcelConfirmAdap
 
     @Override
     public int getItemCount() {
-
         return parcels.size();
     }
 
