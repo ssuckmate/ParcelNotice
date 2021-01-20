@@ -1,6 +1,8 @@
 package com.eos.parcelnotice.retrofit;
 
 import com.eos.parcelnotice.data.ParcelData;
+import com.eos.parcelnotice.data.ParcelDataList;
+import com.eos.parcelnotice.data.ResponseData;
 import com.google.gson.JsonObject;
 
 
@@ -14,14 +16,15 @@ import retrofit2.http.Header;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
 import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 public interface ParcelApi {
 
 
     @GET("user/parcel/myParcels")
-    Call<List<ParcelData>> get_parcels(@Header("token") String token);
+    Call<ParcelDataList> get_parcels(@Header("token") String token);
     @PUT("user/parcel/changeStatus")
-    Call<Object> change_parcel_status(@Header("token") String token,@Body JsonObject jsonObject);
+    Call<ResponseData> change_parcel_status(@Header("token") String token, @Body JsonObject jsonObject);
     @DELETE("user/parcel/delete")
-    Call<Object> delete_parcel(@Header("token") String token,@Body JsonObject jsonObject);
+    Call<ResponseData> delete_parcel(@Header("token") String token,@Query("id") int id);
 }

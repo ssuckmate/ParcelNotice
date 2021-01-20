@@ -33,7 +33,6 @@ import static com.eos.parcelnotice.ParcelConfirmActivity.deleteParcel;
 public class ParcelConfirmAdapter extends RecyclerView.Adapter<ParcelConfirmAdapter.ParcelConfirmViewHolder> {
     List<ParcelData> parcels;
 
-    //layout_join manager가 호출하는 함수.
     public ParcelConfirmAdapter(List<ParcelData> parcels){
         this.parcels = parcels;
     }
@@ -53,13 +52,14 @@ public class ParcelConfirmAdapter extends RecyclerView.Adapter<ParcelConfirmAdap
 
         holder.tvArrival.setText(parcel.getCreatedAt());
         holder.tvRecipient.setText(parcel.getRecipient());
-        holder.tvStatus.setText(parcel.getStatus());
+        holder.tvStatus.setText("상태: "+parcel.getStatus());
 
         if(parcel.getStatus().equals("보관중") || parcel.getStatus().equals("분실")){
-            holder.tvStatus.setText(parcel.getStatus());
+            holder.tvStatus.setText("상태: "+parcel.getStatus());
             holder.btnDelete.setVisibility(View.INVISIBLE);
             holder.btnCancel.setVisibility(View.INVISIBLE);
             holder.btnReceive.setVisibility(View.VISIBLE);
+            holder.itemView.setBackgroundResource(R.drawable.parcel_background);
             holder.btnReceive.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -73,14 +73,16 @@ public class ParcelConfirmAdapter extends RecyclerView.Adapter<ParcelConfirmAdap
             });
         }
         else if(parcel.getStatus().equals("찾아감")){
-            holder.tvStatus.setText(parcel.getTaker()+"이(가) "+parcel.getStatus());
+            holder.tvStatus.setText("상태: "+parcel.getStatus());
+            //holder.tvStatus.setText(parcel.getTaker()+"이(가) "+parcel.getStatus());
             holder.btnDelete.setVisibility(View.VISIBLE);
             holder.btnCancel.setVisibility(View.VISIBLE);
             holder.btnReceive.setVisibility(View.INVISIBLE);
+            holder.itemView.setBackgroundResource(R.drawable.parcel_background2);
             holder.btnCancel.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    parcel.setTaker(null);
+                    //parcel.setTaker(null);
                     parcel.setStatus("보관중");
                     JsonObject json=new JsonObject();
                     json.addProperty("id",parcel.getId());
@@ -91,10 +93,9 @@ public class ParcelConfirmAdapter extends RecyclerView.Adapter<ParcelConfirmAdap
             holder.btnDelete.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    JsonObject json=new JsonObject();
-                    json.addProperty("id",parcel.getId());
-                    deleteParcel(json);
+                    int id = parcel.getId();
                     parcels.remove(parcel);
+                    deleteParcel(id);
                 }
             });
         }
