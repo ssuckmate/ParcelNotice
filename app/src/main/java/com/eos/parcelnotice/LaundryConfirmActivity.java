@@ -51,7 +51,7 @@ public class LaundryConfirmActivity extends AppCompatActivity {
         baseUrl = getString(R.string.base_url);
         context = LaundryConfirmActivity.this;
 
-        init();
+       init();
 
     }
 

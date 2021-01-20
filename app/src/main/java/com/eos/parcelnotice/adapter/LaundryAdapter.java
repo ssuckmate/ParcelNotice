@@ -81,7 +81,7 @@ public class LaundryAdapter extends BaseAdapter {
         final LaundryData item = items.get(position);
         if(item.getEndTime()!=null && item.getEndTime().getTime()- (new Date()).getTime()<=0){
             item.setEndTime(null);
-            item.setOccupantName(null);
+            item.setOccupant(-1);
             item.setStatus("비었음");
             changeLaundryStatus("비었음",null,item.getId());
         }
@@ -96,7 +96,7 @@ public class LaundryAdapter extends BaseAdapter {
             public void onClick(View v) {
                 if(item.getStatus().equals("비었음")){
                     item.setStatus("사용중");
-                    item.setOccupantName(getMyInfo().getName());
+                    item.setOccupant(getMyInfo().getId());
                     TimePickerDialog.OnTimeSetListener listener = new TimePickerDialog.OnTimeSetListener() {
                         @Override
                         public void onTimeSet(final TimePicker view, int hourOfDay, int minute) {
@@ -112,13 +112,11 @@ public class LaundryAdapter extends BaseAdapter {
                         }
                     };
                     showTimePicker(listener);
-
-                    //startTimer(laundryView,item);
                 }
                 else{
                     changeLaundryStatus("비었음",null,item.getId());
                     item.setStatus("비었음");
-                    item.setOccupantName(null);
+                    item.setOccupant(-1);
                     item.setEndTime(null);
                     changeViewContent(laundryView,item);
                 }
@@ -129,15 +127,11 @@ public class LaundryAdapter extends BaseAdapter {
         return laundryView;
     }
 
-    public void addItem(LaundryData item){
-        items.add(item);
-    }
-
     public void changeViewContent(final LaundryView view, final LaundryData item){
         view.setLaundryUse(item.getStatus());
         if(item.getStatus().equals("사용중")){
             view.setLaundryButton("세탁 완료");
-            view.setLaundryUser("이용자: "+item.getOccupantName());
+            view.setLaundryUser(item.getOccupant());
             Date currentTime = new Date();
             long time = item.getEndTime().getTime()- currentTime.getTime();
             view.setLaundryTime(getTime(time));
@@ -153,13 +147,15 @@ public class LaundryAdapter extends BaseAdapter {
                     }
 
                     @Override
-                    public void onFinish() {
-                        changeLaundryStatus("비었음",null, item.getId());
-                        item.setStatus("비었음");
-                        item.setEndTime(null);
-                        item.setOccupantName(null);
-                        changeViewContent(view, item);
-                        manager.notify(1,notification);
+                    public synchronized void onFinish() {
+                        if(item.getStatus().equals("사용중")) {
+                            changeLaundryStatus("비었음", null, item.getId());
+                            item.setStatus("비었음");
+                            item.setEndTime(null);
+                            item.setOccupant(-1);
+                            changeViewContent(view, item);
+                            manager.notify(1, notification);
+                        }
                     }
                 };
                 countDownTimer.start();
@@ -167,7 +163,7 @@ public class LaundryAdapter extends BaseAdapter {
         }
         else{
             view.setLaundryButton("사용");
-            view.setLaundryUser("");
+            view.setLaundryUser(-1);
             view.setLaundryTime("");
         }
     }

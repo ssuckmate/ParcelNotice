@@ -22,6 +22,9 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class MainActivity extends AppCompatActivity {
     ActivityMainBinding binding;
     private static UserData myInfo;
+    UserApi userApi;
+    SharedPreferences pref;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,18 +70,19 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void init() {
-        SharedPreferences pref = getSharedPreferences("token",0);
-
-        Call<UserData> callUser = new Retrofit.Builder()
+        pref = getSharedPreferences("token",0);
+        userApi = new Retrofit.Builder()
                 .baseUrl(getString(R.string.base_url))
                 .addConverterFactory(GsonConverterFactory.create())
                 .build()
-                .create(UserApi.class)
-                .get_user(pref.getString("token",""));
+                .create(UserApi.class);
+
+        Call<UserData> callUser = userApi.get_myInfo(pref.getString("token",""));
         callUser.enqueue(new Callback<UserData>() {
             @Override
             public void onResponse(Call<UserData> call, Response<UserData> response) {
                 myInfo = response.body();
+                initFloor();
             }
 
             @Override
@@ -86,6 +90,21 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+    private void initFloor(){
+        Call<Integer> callFloor = userApi.get_floor(pref.getString("token",""));
+        callFloor.enqueue(new Callback<Integer>() {
+            @Override
+            public void onResponse(Call<Integer> call, Response<Integer> response) {
+                myInfo.setFloor(response.body());
+            }
+
+            @Override
+            public void onFailure(Call<Integer> call, Throwable t) {
+            }
+        });
+
     }
 
     public static UserData getMyInfo(){

@@ -13,6 +13,15 @@ public class UserData {
     private int advantage;
     private int dormitory;
     private int room;
+    private int floor;
+
+    public int getFloor(){
+        return floor;
+    }
+
+    public void setFloor(int floor){
+        this.floor = floor;
+    }
 
     public int getId() {
         return id;

@@ -51,7 +51,8 @@ public class ParcelConfirmAdapter extends RecyclerView.Adapter<ParcelConfirmAdap
         final ParcelData parcel =parcels.get(position);
 
         holder.tvArrival.setText(parcel.getCreatedAt());
-        holder.tvRecipient.setText(parcel.getRecipient());
+        //holder.tvRecipient.setText(parcel.getRecipient());
+        holder.tvRecipient.setText(parcel.getSender());
         holder.tvStatus.setText("상태: "+parcel.getStatus());
 
         if(parcel.getStatus().equals("보관중") || parcel.getStatus().equals("분실")){
@@ -63,7 +64,7 @@ public class ParcelConfirmAdapter extends RecyclerView.Adapter<ParcelConfirmAdap
             holder.btnReceive.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    parcel.setTaker(getMyInfo().getName());
+                    //parcel.setTaker(getMyInfo().getName());
                     parcel.setStatus("찾아감");
                     JsonObject json=new JsonObject();
                     json.addProperty("id",parcel.getId());

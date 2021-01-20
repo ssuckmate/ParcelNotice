@@ -5,8 +5,6 @@ import java.util.Date;
 
 public class DummyData {
 
-    public static String Notice = "1. 복도에 우산 치우기\n2. 점호 후에 조용히 하기";
-
     public static ArrayList<RewardData> plusPoints = new ArrayList<RewardData>(){
         {
             add(new RewardData(new Date(2020, 10, 1), 2, "벌레 잡음"));

@@ -26,5 +26,5 @@ public interface ParcelApi {
     @PUT("user/parcel/changeStatus")
     Call<ResponseData> change_parcel_status(@Header("token") String token, @Body JsonObject jsonObject);
     @DELETE("user/parcel/delete")
-    Call<ResponseData> delete_parcel(@Header("token") String token,@Query("id") int id);
+    Call<ResponseData> delete_parcel(@Header("token") String token,@Query("parcel") int parcel);
 }

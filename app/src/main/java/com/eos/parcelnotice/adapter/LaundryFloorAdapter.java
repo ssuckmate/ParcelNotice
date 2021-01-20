@@ -33,6 +33,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 import static com.eos.parcelnotice.LaundryConfirmActivity.getToken;
 import static com.eos.parcelnotice.LaundryConfirmActivity.setLaundryAdapter;
+import static com.eos.parcelnotice.MainActivity.getMyInfo;
 
 public class LaundryFloorAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
@@ -49,7 +50,7 @@ public class LaundryFloorAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         laundryAdapters = new ArrayList<>();
         viewHolders = new ArrayList<>();
         getMachines(0);
-        currentFloor=1;
+        currentFloor=getMyInfo().getFloor();
     }
 
     @NonNull

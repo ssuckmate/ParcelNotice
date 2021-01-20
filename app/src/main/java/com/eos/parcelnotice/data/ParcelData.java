@@ -37,13 +37,13 @@ public class ParcelData {
         this.updatedAt = updatedAt;
     }*/
 
-    public String getTaker() {
+/*    public String getTaker() {
         return "taker";
-    }
+    }*/
 
-    public void setTaker(String taker) {
+/*    public void setTaker(String taker) {
        // this.taker = taker;
-    }
+    }*/
 
     public String getStatus() {
         return status;
@@ -54,7 +54,7 @@ public class ParcelData {
     }
 
     public String getSender() {
-        return sender;
+        return "보낸사람: "+sender;
     }
 
     public void setSender(String sender) {

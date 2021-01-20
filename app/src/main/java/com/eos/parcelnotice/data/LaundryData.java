@@ -9,14 +9,13 @@ public class LaundryData {
     private int occupant;
     private Date endTime;
     private int dormitory;
-    private String occupantName;
 
-    public String getOccupantName() {
-        return occupantName;
+    public int getOccupant() {
+        return occupant;
     }
 
-    public void setOccupantName(String occupantName) {
-        this.occupantName = occupantName;
+    public void setOccupant(int occupant){
+        this.occupant = occupant;
     }
 
     public Date getEndTime(){

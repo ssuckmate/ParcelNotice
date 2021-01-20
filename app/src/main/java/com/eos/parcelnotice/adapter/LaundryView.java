@@ -8,6 +8,17 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.eos.parcelnotice.R;
+import com.eos.parcelnotice.data.UserData;
+import com.eos.parcelnotice.retrofit.UserApi;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
+
+import static com.eos.parcelnotice.LaundryConfirmActivity.getBaseUrl;
+import static com.eos.parcelnotice.LaundryConfirmActivity.getToken;
 
 public class LaundryView extends LinearLayout {
     TextView tvLaundryMachine,tvLaundryUse,tvLaundryUser, tvLaundryTime;
@@ -45,8 +56,26 @@ public class LaundryView extends LinearLayout {
         tvLaundryUse.setText(use);
     }
 
-    public void setLaundryUser(String user){
-        tvLaundryUser.setText(user);
+    public void setLaundryUser(int userId){
+        if(userId==-1) tvLaundryUser.setText("");
+        else {
+            Call<UserData> callUser = new Retrofit.Builder()
+                    .baseUrl(getBaseUrl())
+                    .addConverterFactory(GsonConverterFactory.create())
+                    .build()
+                    .create(UserApi.class)
+                    .get_user(getToken(), userId);
+            callUser.enqueue(new Callback<UserData>() {
+                @Override
+                public void onResponse(Call<UserData> call, Response<UserData> response) {
+                    tvLaundryUser.setText("이용자: " + response.body().getName());
+                }
+
+                @Override
+                public void onFailure(Call<UserData> call, Throwable t) {
+                }
+            });
+        }
     }
 
     public void setLaundryButton(String use){
