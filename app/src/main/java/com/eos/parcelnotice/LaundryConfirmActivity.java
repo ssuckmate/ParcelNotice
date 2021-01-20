@@ -31,6 +31,7 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
+import static com.eos.parcelnotice.MainActivity.getMyInfo;
 
 
 public class LaundryConfirmActivity extends AppCompatActivity {
@@ -59,6 +60,10 @@ public class LaundryConfirmActivity extends AppCompatActivity {
         binding.laundryConfirmGridView.setAdapter(laundryAdapter);
     }
 
+    public static void resetAdapter(ArrayList<Integer> floors, int currentFloor){
+        binding.laundryConfirmRecyclerView.setAdapter(new LaundryFloorAdapter(context,floors,currentFloor));
+    }
+
 
     private void init(){
         Call<DormitoryData> callDormitory = new Retrofit.Builder()
@@ -77,7 +82,7 @@ public class LaundryConfirmActivity extends AppCompatActivity {
                 }
                 LinearLayoutManager layoutManager = new LinearLayoutManager(getApplicationContext(),LinearLayoutManager.HORIZONTAL,false);
                 binding.laundryConfirmRecyclerView.setLayoutManager(layoutManager);
-                floorAdapter = new LaundryFloorAdapter(getApplicationContext(),floors);
+                floorAdapter = new LaundryFloorAdapter(getApplicationContext(),floors,getMyInfo().getFloor());
                 binding.laundryConfirmRecyclerView.setAdapter(floorAdapter);
             }
 

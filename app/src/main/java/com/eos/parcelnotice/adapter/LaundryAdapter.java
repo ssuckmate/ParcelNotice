@@ -80,8 +80,6 @@ public class LaundryAdapter extends BaseAdapter {
 
         final LaundryData item = items.get(position);
         if(item.getEndTime()!=null && item.getEndTime().getTime()- (new Date()).getTime()<=0){
-            item.setEndTime(null);
-            item.setOccupant(-1);
             item.setStatus("비었음");
             changeLaundryStatus("비었음",null,item.getId());
         }
@@ -116,8 +114,6 @@ public class LaundryAdapter extends BaseAdapter {
                 else{
                     changeLaundryStatus("비었음",null,item.getId());
                     item.setStatus("비었음");
-                    item.setOccupant(-1);
-                    item.setEndTime(null);
                     changeViewContent(laundryView,item);
                 }
 
@@ -147,19 +143,19 @@ public class LaundryAdapter extends BaseAdapter {
                     }
 
                     @Override
-                    public synchronized void onFinish() {
+                    public void onFinish() {
                         if(item.getStatus().equals("사용중")) {
-                            changeLaundryStatus("비었음", null, item.getId());
-                            item.setStatus("비었음");
-                            item.setEndTime(null);
-                            item.setOccupant(-1);
-                            changeViewContent(view, item);
                             manager.notify(1, notification);
                         }
+                        changeLaundryStatus("비었음", null, item.getId());
+                        item.setStatus("비었음");
+                        changeViewContent(view, item);
+
                     }
                 };
                 countDownTimer.start();
             }
+
         }
         else{
             view.setLaundryButton("사용");
@@ -196,19 +192,13 @@ public class LaundryAdapter extends BaseAdapter {
         jsonObject.addProperty("status",status);
         if(endTime!=null) {
             jsonObject.addProperty("endtime", format.format(endTime));
-            Log.d("bbbbbbbbb", "endTime: " + format.format(endTime));
         }
         Call<LaundryData> call = laundryApi.change_laundry_status(getToken(),jsonObject);
         call.enqueue(new Callback<LaundryData>() {
             @Override
-            public void onResponse(Call<LaundryData> call, Response<LaundryData> response) {
-
-            }
-
+            public void onResponse(Call<LaundryData> call, Response<LaundryData> response) { }
             @Override
-            public void onFailure(Call<LaundryData> call, Throwable t) {
-
-            }
+            public void onFailure(Call<LaundryData> call, Throwable t) { }
         });
     }
 

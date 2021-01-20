@@ -34,11 +34,15 @@ public class LaundryData {
         this.id = id;
     }
 
-    public String getStatus() {
+    public synchronized String getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public synchronized void setStatus(String status) {
         this.status = status;
+        if(status=="비었음"){
+            setEndTime(null);
+            setOccupant(-1);
+        }
     }
 }

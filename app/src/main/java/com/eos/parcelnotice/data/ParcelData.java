@@ -1,13 +1,14 @@
 package com.eos.parcelnotice.data;
 
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class ParcelData {
-/*    private String createdAt;
-    private String updatedAt;
-    private String taker;*/
     private int id;
     private String sender;
     private String status;
+    private Date createdAt;
     private int recipient;
     private int dormitory;
     private int room;
@@ -22,28 +23,9 @@ public class ParcelData {
         this.recipient = recipient;
     }
     public String getCreatedAt() {
-        return "1/20(수) 도착 ";
+        SimpleDateFormat format = new SimpleDateFormat("yyyy/MM/dd");
+        return "도착일: "+ format.format(createdAt);
     }
-
-/*    public void setCreatedAt(String createdAt) {
-        this.createdAt = createdAt;
-    }
-
-    public String getUpdatedAt() {
-        return updatedAt;
-    }
-
-    public void setUpdatedAt(String updatedAt) {
-        this.updatedAt = updatedAt;
-    }*/
-
-/*    public String getTaker() {
-        return "taker";
-    }*/
-
-/*    public void setTaker(String taker) {
-       // this.taker = taker;
-    }*/
 
     public String getStatus() {
         return status;

@@ -47,7 +47,7 @@ public class NoticeActivity extends AppCompatActivity {
         noticeDataCall.enqueue(new Callback<ArrayList<NoticeData>>() {
             @Override
             public void onResponse(Call<ArrayList<NoticeData>> call, Response<ArrayList<NoticeData>> response) {
-                notice = "\n"+response.body().get(0).getContents();
+                notice = "\n"+response.body().get(0).getContents()+"\n";
                 binding.editTextNotice.setText(notice);
             }
 

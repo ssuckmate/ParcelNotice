@@ -32,6 +32,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 import static com.eos.parcelnotice.LaundryConfirmActivity.getToken;
+import static com.eos.parcelnotice.LaundryConfirmActivity.resetAdapter;
 import static com.eos.parcelnotice.LaundryConfirmActivity.setLaundryAdapter;
 import static com.eos.parcelnotice.MainActivity.getMyInfo;
 
@@ -40,17 +41,13 @@ public class LaundryFloorAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     private ArrayList<Integer> floors;
     private static Context context;
     private LaundryApi laundryApi;
-    ArrayList<LaundryAdapter> laundryAdapters;
-    ArrayList<ViewHolder> viewHolders;
     private int currentFloor;
 
-    public LaundryFloorAdapter(Context context,ArrayList<Integer> floors){
+    public LaundryFloorAdapter(Context context,ArrayList<Integer> floors, int currentFloor){
         this.context = context;
         this.floors = floors;
-        laundryAdapters = new ArrayList<>();
-        viewHolders = new ArrayList<>();
-        getMachines(0);
-        currentFloor=getMyInfo().getFloor();
+        this.currentFloor = currentFloor;
+        init();
     }
 
     @NonNull
@@ -64,7 +61,6 @@ public class LaundryFloorAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         final int floor = floors.get(position);
         final ViewHolder viewHolder = (ViewHolder)holder;
-        viewHolders.add(viewHolder);
 
         viewHolder.tv_laundry_floor.setText(floor+"");
         if(floor==currentFloor) viewHolder.tv_laundry_floor.setBackgroundColor(Color.parseColor("#14A534"));
@@ -72,32 +68,26 @@ public class LaundryFloorAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         viewHolder.tv_laundry_floor.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                viewHolders.get(currentFloor-1).tv_laundry_floor.setBackgroundColor(Color.parseColor("#A8E4B5"));
-                viewHolder.tv_laundry_floor.setBackgroundColor(Color.parseColor("#14A534"));
-                currentFloor=floor;
-                setLaundryAdapter(laundryAdapters.get(floor-1));
+                resetAdapter(floors,floor);
             }
         });
     }
 
-    private void getMachines(final int position) {
-        if(position == floors.size()) return;
-        final int floor = floors.get(position);
+
+    private void init() {
         laundryApi = new Retrofit.Builder()
                 .baseUrl(LaundryConfirmActivity.getBaseUrl())
                 .addConverterFactory(GsonConverterFactory.create())
                 .build()
                 .create(LaundryApi.class);
 
-        Call<ArrayList<LaundryData>> callLaundryList = laundryApi.get_laundry_list(getToken(),floor);
+        Call<ArrayList<LaundryData>> callLaundryList = laundryApi.get_laundry_list(getToken(),currentFloor);
 
         Callback<ArrayList<LaundryData>> callback = new Callback<ArrayList<LaundryData>>() {
             @Override
             public void onResponse(Call<ArrayList<LaundryData>> call, Response<ArrayList<LaundryData>> response) {
                 LaundryAdapter laundryAdapter = new LaundryAdapter(context,response.body(),laundryApi);
-                laundryAdapters.add(laundryAdapter);
-                if(floor==1) setLaundryAdapter(laundryAdapter);
-                getMachines(position+1);
+                setLaundryAdapter(laundryAdapter);
             }
 
             @Override
