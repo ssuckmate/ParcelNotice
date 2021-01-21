@@ -1,20 +1,15 @@
 package com.eos.parcelnotice;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import androidx.databinding.DataBindingUtil;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.EditText;
-
-import com.eos.parcelnotice.data.DummyData;
 import com.eos.parcelnotice.data.NoticeData;
 import com.eos.parcelnotice.databinding.ActivityNoticeBinding;
 import com.eos.parcelnotice.retrofit.NoticeApi;
-import com.eos.parcelnotice.retrofit.UserApi;
 
 import java.util.ArrayList;
 
@@ -51,7 +46,7 @@ public class NoticeActivity extends AppCompatActivity {
             public void onResponse(Call<ArrayList<NoticeData>> call, Response<ArrayList<NoticeData>> response) {
                 if(response.body().size()==0) binding.editTextNotice.setText("공지가 없습니다.");
                 else {
-                    notice = "\n" + response.body().get(0).getContents() + "\n";
+                    notice = response.body().get(0).getContents();
                     binding.editTextNotice.setText(notice);
                 }
             }

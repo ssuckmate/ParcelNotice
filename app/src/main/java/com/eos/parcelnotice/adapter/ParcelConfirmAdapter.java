@@ -1,9 +1,6 @@
 package com.eos.parcelnotice.adapter;
 
 
-import android.annotation.SuppressLint;
-import android.content.SharedPreferences;
-import android.provider.ContactsContract;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,22 +8,14 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.eos.parcelnotice.ParcelConfirmActivity;
 import com.eos.parcelnotice.R;
-import com.eos.parcelnotice.data.DummyData;
 import com.eos.parcelnotice.data.ParcelData;
-import com.eos.parcelnotice.databinding.ItemParcelConfirmRecyclerBinding;
 import com.google.gson.JsonObject;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import retrofit2.http.GET;
-
-import static com.eos.parcelnotice.MainActivity.getMyInfo;
 import static com.eos.parcelnotice.ParcelConfirmActivity.changeParcelStatus;
 import static com.eos.parcelnotice.ParcelConfirmActivity.deleteParcel;
 
