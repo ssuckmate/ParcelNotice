@@ -46,7 +46,8 @@ public class LaundryFloorAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     public LaundryFloorAdapter(Context context,ArrayList<Integer> floors, int currentFloor){
         this.context = context;
         this.floors = floors;
-        this.currentFloor = currentFloor;
+        if(currentFloor==0) this.currentFloor=1;
+        else this.currentFloor = currentFloor;
         init();
     }
 

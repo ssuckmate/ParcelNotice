@@ -10,7 +10,7 @@
             type="com.eos.parcelnotice.NoticeActivity" />
     </data>
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
@@ -19,25 +19,56 @@
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolBar_notice"
             android:layout_width="match_parent"
-            android:layout_gravity="center"
             android:layout_height="60dp"
+            android:layout_gravity="center"
             android:background="@color/colorPrimary"
+            android:theme="@style/ToolbarTheme"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
             app:title="공지 확인"
-            app:titleTextColor="#000000"
-            android:theme="@style/ToolbarTheme"/>
+            app:titleTextColor="#000000" />
+
+
+        <TextView
+            android:id="@+id/textView_background"
+            android:layout_width="360dp"
+            android:layout_height="400dp"
+            android:layout_marginTop="40dp"
+            android:background="@color/colorPrimaryDark"
+            android:gravity="center"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.49"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/toolBar_notice" />
 
         <TextView
             android:id="@+id/editText_notice"
-            android:layout_width="380dp"
-            android:layout_height="wrap_content"
-            android:lineSpacingExtra="15dp"
+            android:layout_width="320dp"
+            android:layout_height="360dp"
+            android:layout_marginTop="60dp"
             android:layout_gravity="center"
-            android:layout_marginTop="40dp"
             android:background="@color/colorPrimaryDark"
-            android:enabled="false"
             android:fontFamily="@font/nexon_gothic_lv1_bold"
             android:gravity="top"
+            android:lineSpacingExtra="15dp"
             android:textColor="#000000"
-            android:textSize="22dp" />
-    </LinearLayout>
+            android:textSize="22dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/toolBar_notice" />
+
+        <Button
+            android:id="@+id/button_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="30dp"
+            android:background="@color/colorAccent"
+            android:fontFamily="@font/nexon_gothic_lv1_bold"
+            android:shadowColor="#FFFFFF"
+            android:text="뒤로가기"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView_background" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

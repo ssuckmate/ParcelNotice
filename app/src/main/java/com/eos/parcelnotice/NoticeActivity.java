@@ -4,8 +4,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.databinding.DataBindingUtil;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.EditText;
 
 import com.eos.parcelnotice.data.DummyData;
@@ -47,13 +49,22 @@ public class NoticeActivity extends AppCompatActivity {
         noticeDataCall.enqueue(new Callback<ArrayList<NoticeData>>() {
             @Override
             public void onResponse(Call<ArrayList<NoticeData>> call, Response<ArrayList<NoticeData>> response) {
-                notice = "\n"+response.body().get(0).getContents()+"\n";
-                binding.editTextNotice.setText(notice);
+                if(response.body().size()==0) binding.editTextNotice.setText("공지가 없습니다.");
+                else {
+                    notice = "\n" + response.body().get(0).getContents() + "\n";
+                    binding.editTextNotice.setText(notice);
+                }
             }
 
             @Override
-            public void onFailure(Call<ArrayList<NoticeData>> call, Throwable t) {
+            public void onFailure(Call<ArrayList<NoticeData>> call, Throwable t) { }
+        });
 
+        binding.buttonBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(NoticeActivity.this,MainActivity.class);
+                startActivity(intent);
             }
         });
 

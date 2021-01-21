@@ -1,5 +1,6 @@
 package com.eos.parcelnotice.retrofit;
 
+import com.eos.parcelnotice.data.FloorData;
 import com.eos.parcelnotice.data.UserData;
 import com.google.gson.JsonObject;
 
@@ -17,5 +18,5 @@ public interface UserApi {
     @GET("sagam/user/userInfo")
     Call<UserData> get_user(@Header("token") String token, @Query("user") int user);
     @GET("user/room/floor")
-    Call<Integer> get_floor(@Header("token") String token);
+    Call<FloorData> get_floor(@Header("token") String token);
 }

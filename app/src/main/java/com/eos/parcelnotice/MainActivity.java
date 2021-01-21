@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import com.eos.parcelnotice.data.FloorData;
 import com.eos.parcelnotice.data.UserData;
 import com.eos.parcelnotice.databinding.ActivityMainBinding;
 import com.eos.parcelnotice.retrofit.UserApi;
@@ -93,15 +94,15 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initFloor(){
-        Call<Integer> callFloor = userApi.get_floor(pref.getString("token",""));
-        callFloor.enqueue(new Callback<Integer>() {
+        Call<FloorData> callFloor = userApi.get_floor(pref.getString("token",""));
+        callFloor.enqueue(new Callback<FloorData>() {
             @Override
-            public void onResponse(Call<Integer> call, Response<Integer> response) {
-                myInfo.setFloor(response.body());
+            public void onResponse(Call<FloorData> call, Response<FloorData> response) {
+                myInfo.setFloor(response.body().getFloor());
             }
 
             @Override
-            public void onFailure(Call<Integer> call, Throwable t) {
+            public void onFailure(Call<FloorData> call, Throwable t) {
             }
         });
 
