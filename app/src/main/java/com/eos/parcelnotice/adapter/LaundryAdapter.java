@@ -19,6 +19,7 @@ import android.widget.TimePicker;
 import androidx.core.app.NotificationCompat;
 
 import com.eos.parcelnotice.LaundryConfirmActivity;
+import com.eos.parcelnotice.ParcelConfirmActivity;
 import com.eos.parcelnotice.R;
 import com.eos.parcelnotice.data.LaundryData;
 import com.eos.parcelnotice.retrofit.LaundryApi;
@@ -45,11 +46,13 @@ public class LaundryAdapter extends BaseAdapter {
     LaundryApi laundryApi;
     NotificationManager manager;
     Notification notification;
+    boolean isOnClick;
 
     public LaundryAdapter(Context context, ArrayList<LaundryData> items, LaundryApi laundryApi){
         this.context = context;
         this.items = items;
         this.laundryApi = laundryApi;
+        isOnClick = false;
     }
 
     @Override
@@ -79,7 +82,7 @@ public class LaundryAdapter extends BaseAdapter {
         }
 
         final LaundryData item = items.get(position);
-        if(item.getEndTime()!=null && item.getEndTime().getTime()- (new Date()).getTime()<=0){
+        if(item.getEndTime()!=null && item.getEndTime().getTime()- (new Date(System.currentTimeMillis())).getTime()<=0){
             item.setStatus("비었음");
             changeLaundryStatus("비었음",null,item.getId());
         }
@@ -95,13 +98,13 @@ public class LaundryAdapter extends BaseAdapter {
                 if(item.getStatus().equals("비었음")){
                     item.setStatus("사용중");
                     item.setOccupant(getMyInfo().getId());
+                    isOnClick=true;
                     TimePickerDialog.OnTimeSetListener listener = new TimePickerDialog.OnTimeSetListener() {
                         @Override
                         public void onTimeSet(final TimePicker view, int hourOfDay, int minute) {
                             final int time = (hourOfDay * 60 + minute)*60;
 
                             Calendar cal = Calendar.getInstance();
-                            cal.setTime(new Date());
                             cal.add(Calendar.SECOND, time);
                             item.setEndTime(cal.getTime());
                             Log.d("endTime", "endTime: "+item.getEndTime());
@@ -128,8 +131,17 @@ public class LaundryAdapter extends BaseAdapter {
         if(item.getStatus().equals("사용중")){
             view.setLaundryButton("세탁 완료");
             view.setLaundryUser(item.getOccupant());
-            Date currentTime = new Date();
+            if(!isOnClick){
+                //시차 해결
+                Calendar cal = Calendar.getInstance();
+                cal.setTime(item.getEndTime());
+                cal.add(Calendar.HOUR,-9);
+                item.setEndTime(cal.getTime());
+                isOnClick=true;
+            }
+            Date currentTime = new Date(System.currentTimeMillis());
             long time = item.getEndTime().getTime()- currentTime.getTime();
+
             view.setLaundryTime(getTime(time));
             if(time>0) {
                 initNotice();

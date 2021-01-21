@@ -100,18 +100,21 @@ public class RewardActivity extends AppCompatActivity {
             tv_arrival.setText(transFormat.format(plusPoint.getCreatedAt()));
             tv_arrival.setGravity(Gravity.CENTER);
             tv_arrival.setTextSize(18);
+            tv_arrival.setHeight(100);
             tableRow.addView(tv_arrival);
 
             TextView tv_point = new TextView(this);
             tv_point.setText(Integer.toString(plusPoint.getAmount()));
             tv_point.setGravity(Gravity.CENTER);
             tv_point.setTextSize(18);
+            tv_point.setHeight(100);
             tableRow.addView(tv_point);
 
             TextView tv_reason = new TextView(this);
             tv_reason.setText(plusPoint.getReason());
             tv_reason.setGravity(Gravity.CENTER);
             tv_reason.setTextSize(18);
+            tv_reason.setHeight(100);
             tableRow.addView(tv_reason);
 
             binding.TableLayoutPlus.addView(tableRow);
@@ -133,18 +136,21 @@ public class RewardActivity extends AppCompatActivity {
             tv_arrival.setText(transFormat.format(minusPoint.getCreatedAt()));
             tv_arrival.setGravity(Gravity.CENTER);
             tv_arrival.setTextSize(18);
+            tv_arrival.setHeight(100);
             tableRow.addView(tv_arrival);
 
             TextView tv_point = new TextView(this);
             tv_point.setText(Integer.toString(minusPoint.getAmount()));
             tv_point.setGravity(Gravity.CENTER);
             tv_point.setTextSize(18);
+            tv_point.setHeight(100);
             tableRow.addView(tv_point);
 
             TextView tv_reason = new TextView(this);
             tv_reason.setText(minusPoint.getReason());
             tv_reason.setGravity(Gravity.CENTER);
             tv_reason.setTextSize(18);
+            tv_reason.setHeight(100);
             tableRow.addView(tv_reason);
 
             binding.TableLayoutMinus.addView(tableRow);

@@ -67,6 +67,7 @@
             android:fontFamily="@font/nexon_gothic_lv1_bold"
             android:shadowColor="#FFFFFF"
             android:text="뒤로가기"
+            android:textSize="17dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView_background" />
