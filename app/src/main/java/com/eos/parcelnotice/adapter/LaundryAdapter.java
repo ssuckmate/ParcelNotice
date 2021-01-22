@@ -156,7 +156,7 @@ public class LaundryAdapter extends BaseAdapter {
 
                     @Override
                     public void onFinish() {
-                        if(item.getStatus().equals("사용중")) {
+                        if(item.getStatus().equals("사용중") && item.getOccupant()==getMyInfo().getId()) {
                             manager.notify(1, notification);
                         }
                         changeLaundryStatus("비었음", null, item.getId());
