@@ -8,6 +8,7 @@
     </style>
     <style name="ToolbarTheme">
         <item name="android:textColorPrimary">@color/white</item>
+        <item name="fontFamily">@font/nexon_gothic_lv1_bold</item>
     </style>
 
 </resources>
